@@ -2,6 +2,28 @@ const User = require('../Models/UserModel')
 const asyncHandler = require('../utils/asyncHandler')
 const genToken = require('../utils/generateToken')
 
+// @desc    login user & get Token
+// @route   POST /api/users/login
+// @access  public
+exports.login = asyncHandler(async (req, res) => {
+  const { email, password } = req.body
+
+  const user = await User.findOne({ email })
+
+  if (user && (await user.matchPassword(password))) {
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      token: genToken(user._id),
+    })
+  } else {
+    res.status(401)
+    throw new Error('Invalid email or password')
+  }
+})
+
 // @desc    register new user
 // @route   POST /api/users/register
 // @access  public
@@ -30,13 +52,35 @@ exports.register = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    get user profile
+// @route   GET /api/users/profile
+// @access  private
+exports.getUserProfile = asyncHandler(async(req, res) => {
+  const user = await User.findById(req.user._id)
+  console.log(req.user._id)
+
+  if(user){
+    res.json({
+      _id: user._id,
+      name:user.name,
+      email: user.email
+    })
+  }else{
+    res.status(404)
+    throw new Error('User not found')
+  }
+})
+
 // admin routes ********************************
 
 // @desc    get all users
 // @route   POST /api/users/register
 // @access  private/admin
 exports.getUsers = asyncHandler(async (req, res) => {
+  console.log(req.user)
+
   const users = await User.find()
+  // console.log(req.headers.authorization)
 
   if (!users) {
     res.status(400)
@@ -74,13 +118,13 @@ exports.updateUser = asyncHandler(async (req, res) => {
 // @desc    update user
 // @route   DELETE /api/users/:userId
 // @access  private/admin
-exports.deleteUsers = asyncHandler(async(req, res) => {
+exports.deleteUsers = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.userId)
 
-  if(user) {
+  if (user) {
     await user.remove()
-    res.json({message: 'User removed'})
-  }else{
+    res.json({ message: 'User removed' })
+  } else {
     res.status(404)
     throw new Error('User not found')
   }
