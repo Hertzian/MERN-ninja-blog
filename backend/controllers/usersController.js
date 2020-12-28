@@ -30,16 +30,58 @@ exports.register = asyncHandler(async (req, res) => {
   }
 })
 
+// admin routes ********************************
+
 // @desc    get all users
 // @route   POST /api/users/register
 // @access  private/admin
-exports.getUsers = asyncHandler(async(req, res) => {
+exports.getUsers = asyncHandler(async (req, res) => {
   const users = await User.find()
 
-  if(!users){
+  if (!users) {
     res.status(400)
     throw new Error('No users are registered')
   }
 
   res.json(users)
+})
+
+// @desc    update user
+// @route   PUT /api/users/:userId
+// @access  private/admin
+exports.updateUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.userId)
+
+  if (user) {
+    user.name = req.body.name || user.name
+    user.email = req.body.email || user.email
+    user.role = req.body.role || user.role
+
+    const updatedUser = await user.save()
+
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      role: updatedUser.role,
+    })
+  } else {
+    res.status(404)
+    throw new Error('User not found')
+  }
+})
+
+// @desc    update user
+// @route   DELETE /api/users/:userId
+// @access  private/admin
+exports.deleteUsers = asyncHandler(async(req, res) => {
+  const user = await User.findById(req.params.userId)
+
+  if(user) {
+    await user.remove()
+    res.json({message: 'User removed'})
+  }else{
+    res.status(404)
+    throw new Error('User not found')
+  }
 })
