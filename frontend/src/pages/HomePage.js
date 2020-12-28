@@ -1,7 +1,7 @@
 import React from 'react'
 import BlogPreview from '../components/BlogPreview'
 
-const Home = () => {
+const HomePage = () => {
   const blogs = [
     {
       title: 'My First Blog',
@@ -33,4 +33,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default HomePage

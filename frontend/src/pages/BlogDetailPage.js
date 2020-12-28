@@ -1,6 +1,6 @@
 import React from 'react'
 
-const BlogDetail = () => {
+const BlogDetailPage = () => {
   return (
     <div className='blog-details'>
       <h2>Blog detail</h2>
@@ -13,4 +13,4 @@ const BlogDetail = () => {
   )
 }
 
-export default BlogDetail
+export default BlogDetailPage
