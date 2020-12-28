@@ -8,6 +8,7 @@ router.post('/register', usersController.register)
 router.post('/login', usersController.login)
 
 router.get('/profile', protect, usersController.getUserProfile)
+router.put('/profile', protect, usersController.updateUserProfile)
 
 // admin routes
 router.get('/', protect, isAdmin, usersController.getUsers)
