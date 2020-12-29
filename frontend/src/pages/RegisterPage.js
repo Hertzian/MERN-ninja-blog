@@ -1,6 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import AlertContext from '../context/alert/alertContext'
+import AuthContext from '../context/auth/authContext'
 
 const RegisterPage = () => {
+  const alertContext = useContext(AlertContext)
+  const { setAlert } = alertContext
+
+  const authContext = useContext(AuthContext)
+  const {register} = authContext
+
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -19,8 +27,22 @@ const RegisterPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(user)
-    console.log('login success!')
+
+    if (name === '' || email === '' || password === '') {
+      setAlert('All fields pls ;)', 'danger')
+    } else if (password !== confirmPassword) {
+      setAlert('Passwords do not match', 'danger')
+    } else if(password.length < 8){
+      setAlert('To short your pass...', 'danger')
+
+    }else {
+      register({name, email, password})
+      setAlert('Register success!', 'success')
+
+      // console.log(password.length)
+      // console.log(user)
+      // console.log('login success!')
+    }
   }
 
   return (
@@ -30,11 +52,23 @@ const RegisterPage = () => {
         <label htmlFor='name' className='create label'>
           Name:
         </label>
-        <input name='name' type='text' value={name} onChange={onChange} />
+        <input
+          name='name'
+          type='text'
+          value={name}
+          onChange={onChange}
+          // required
+        />
         <label htmlFor='email' className='create label'>
           Email:
         </label>
-        <input name='email' type='email' value={email} onChange={onChange} />
+        <input
+          name='email'
+          type='email'
+          value={email}
+          onChange={onChange}
+          // required
+        />
         <label htmlFor='password' className='create label'>
           Password:
         </label>
@@ -43,6 +77,8 @@ const RegisterPage = () => {
           type='password'
           value={password}
           onChange={onChange}
+          // required
+          // minLength='8'
         />
         <label htmlFor='confirm-password' className='create label'>
           Confirm password:
@@ -52,6 +88,9 @@ const RegisterPage = () => {
           type='password'
           value={confirmPassword}
           onChange={onChange}
+          // required
+          // minLength='8'
+
         />
         <button type='submit'>Register</button>
       </form>

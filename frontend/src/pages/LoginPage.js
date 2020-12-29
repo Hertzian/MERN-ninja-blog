@@ -1,6 +1,10 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import AlertContext from '../context/alert/alertContext'
 
 const LoginPage = () => {
+  const alertContext = useContext(AlertContext)
+  const { setAlert } = alertContext
+
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -11,12 +15,21 @@ const LoginPage = () => {
   const onChange = (e) => {
     setUser({
       ...user,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     })
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    if(email === '' || password === ''){
+      setAlert('All fields pls ;)', 'danger')
+    }else if(password.length < 8){
+      setAlert('To short your pass...', 'danger')
+    }else{
+      setAlert('You are logged in!', 'success')
+
+    }
     console.log(user)
     console.log('login success!')
   }
