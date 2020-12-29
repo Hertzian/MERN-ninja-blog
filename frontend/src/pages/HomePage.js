@@ -21,7 +21,12 @@ const HomePage = () => {
 
   return (
     <div className='home'>
-      <h2>Homepage</h2>
+      <h2>Welcome!</h2>
+      <p>This is a simple page using the MERN stack, utilize in the backend, node, express, jwt, mongoDB, bcrypt, mongoose.</p>
+      <p>To handle frontend uses react with hooks mainly useState, useEffect, useReducer, useContext. </p>
+      <p>Of course it uses concurrently and proxy to join frontend and backend.</p>
+      <p>Can look a bit simple, but have plenty of functionalities, for example:</p>
+      <p>register, login, create new blog, access to user profile and access for admin to manage users, blogs!.</p>
       {blogs.length === 0 ? (
         <h2>no posts yet...</h2>
       ) : (

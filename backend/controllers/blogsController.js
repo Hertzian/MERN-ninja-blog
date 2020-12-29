@@ -12,7 +12,7 @@ exports.getBlogs = asyncHandler(async (req, res) => {
   if (blogs) {
     res.json(blogs)
   } else {
-    res.status(404)
+    res.status(404).json({ message: 'No blogs found!' })
     throw new Error('No blogs found!')
   }
 })
@@ -28,7 +28,7 @@ exports.getBlogById = asyncHandler(async (req, res) => {
   if (blog) {
     res.json(blog)
   } else {
-    res.status(404)
+    res.status(404).json({ message: 'No blog found!' })
     throw new Error('No blog found!')
   }
 })
@@ -56,11 +56,11 @@ exports.updateOwnerBlog = asyncHandler(async (req, res) => {
         body: updateBlog.body,
       })
     } else {
-      res.status(401)
+      res.status(401).json({ message: 'Not blog owner' })
       throw new Error('Not blog owner')
     }
   } else {
-    res.status(404)
+    res.status(404).json({ message: 'No blog found!' })
     throw new Error('No blog found!')
   }
 })
@@ -75,8 +75,8 @@ exports.createBlog = asyncHandler(async (req, res) => {
 
   if (blog) {
     res.status(201).json(blog)
-  }else{
-    res.status(400)
+  } else {
+    res.status(400).json({ message: 'Invalid data' })
     throw new Error('Invalid data')
   }
 })
@@ -95,7 +95,7 @@ exports.deleteBlog = asyncHandler(async (req, res) => {
     await blog.remove()
     res.json({ message: 'Blog removed' })
   } else {
-    res.status(404)
+    res.status(404).json({ message: 'Blog not found' })
     throw new Error('Blog not found')
   }
 })

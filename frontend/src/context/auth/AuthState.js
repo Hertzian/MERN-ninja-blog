@@ -10,6 +10,7 @@ import {
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
+  CLEAR_ERRORS
 } from '../types'
 
 const AuthState = ({ children }) => {
@@ -67,7 +68,7 @@ const AuthState = ({ children }) => {
       dispatch({ type: REGISTER_SUCCESS, payload: res.data })
     } catch (err) {
       dispatch({ type: REGISTER_FAIL, payload: err.response.data.message })
-      console.log(err.response.data)
+      console.log(err.response.data.message)
     }
   }
 
@@ -75,7 +76,7 @@ const AuthState = ({ children }) => {
     console.log('logout')
   }
 
-  const clearErrors = () => console.log('clear errors')
+  const clearErrors = () => dispatch({type: CLEAR_ERRORS})
 
   return (
     <authContext.Provider

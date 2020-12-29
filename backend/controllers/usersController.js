@@ -19,7 +19,7 @@ exports.login = asyncHandler(async (req, res) => {
       token: genToken(user._id),
     })
   } else {
-    res.status(401)
+    res.status(401).json({message: 'Invalid email or password'})
     throw new Error('Invalid email or password')
   }
 })
@@ -32,7 +32,7 @@ exports.register = asyncHandler(async (req, res) => {
   const userExists = await User.findOne({ email })
 
   if (userExists) {
-    res.status(400)
+    res.status(400).json({message: 'User already exists'})
     throw new Error('User already exists')
   }
 
@@ -47,7 +47,7 @@ exports.register = asyncHandler(async (req, res) => {
       token: genToken(user._id),
     })
   } else {
-    res.status(400)
+    res.status(400).json({message: 'Invalid user data'})
     throw new Error('Invalid user data')
   }
 })
@@ -66,7 +66,7 @@ exports.getUserProfile = asyncHandler(async (req, res) => {
       email: user.email,
     })
   } else {
-    res.status(404)
+    res.status(404).json({message: 'User not found'})
     throw new Error('User not found')
   }
 })
@@ -96,7 +96,7 @@ exports.updateUserProfile = asyncHandler(async (req, res) => {
       token: genToken(updateUser._id),
     })
   } else {
-    res.status(404)
+    res.status(404).json({message: 'User not found'})
     throw new Error('User not found')
   }
 })
@@ -113,7 +113,7 @@ exports.getUsers = asyncHandler(async (req, res) => {
   // console.log(req.headers.authorization)
 
   if (!users) {
-    res.status(400)
+    res.status(400).json({message: 'No users are registered'})
     throw new Error('No users are registered')
   }
 
@@ -140,7 +140,7 @@ exports.updateUser = asyncHandler(async (req, res) => {
       role: updatedUser.role,
     })
   } else {
-    res.status(404)
+    res.status(404).json({message: 'User not found'})
     throw new Error('User not found')
   }
 })
@@ -155,7 +155,7 @@ exports.deleteUsers = asyncHandler(async (req, res) => {
     await user.remove()
     res.json({ message: 'User removed' })
   } else {
-    res.status(404)
+    res.status(404).json({message: 'User not found'})
     throw new Error('User not found')
   }
 })

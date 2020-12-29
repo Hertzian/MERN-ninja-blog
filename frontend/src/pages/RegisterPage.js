@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react'
+import { set } from 'mongoose'
+import React, { useState, useContext, useEffect } from 'react'
 import AlertContext from '../context/alert/alertContext'
 import AuthContext from '../context/auth/authContext'
 
@@ -7,7 +8,15 @@ const RegisterPage = () => {
   const { setAlert } = alertContext
 
   const authContext = useContext(AuthContext)
-  const {register} = authContext
+  const {register, error, clearErrors} = authContext
+
+  useEffect(()=> {
+    // if(error === 'User already exists'){
+    if(error){
+      setAlert(error, 'danger')
+      clearErrors()
+    }
+  }, [error, setAlert])
 
   const [user, setUser] = useState({
     name: '',
@@ -37,7 +46,6 @@ const RegisterPage = () => {
 
     }else {
       register({name, email, password})
-      setAlert('Register success!', 'success')
 
       // console.log(password.length)
       // console.log(user)
