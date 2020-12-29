@@ -118,3 +118,20 @@
   border-radius: 8px;
   cursor: pointer;
 }
+
+/* alerts */
+.alert {
+  color: #fff;
+  background-color: #333;
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.alert-danger{
+  background-color: #f1356d;
+}
+
+.alert-success{
+  background-color: #0dcef0;
+}
