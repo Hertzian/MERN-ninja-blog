@@ -30,10 +30,10 @@ const AuthState = ({ children }) => {
     if (localStorage.token) {
       setAuthToken(localStorage.token)
     }
-    console.log('headers: ',axios.default.headers)
 
     try {
       const res = await axios.get('/api/users/profile')
+
       dispatch({
         type: USER_LOADED,
         payload: res.data,
@@ -42,7 +42,7 @@ const AuthState = ({ children }) => {
       console.error('err: ', err.message)
       dispatch({
         type: USER_LOADED,
-        payload: err.message,
+        payload: err.response.data.message,
       })
     }
   }

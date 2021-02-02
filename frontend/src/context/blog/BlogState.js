@@ -48,7 +48,7 @@ const BlogState = (props) => {
       console.error('err: ', err)
       dispatch({
         type: ERROR_BLOG,
-        payload: err.response,
+        payload: err.response.data.message,
       })
     }
   }
@@ -67,7 +67,7 @@ const BlogState = (props) => {
       console.error('err: ', err)
       dispatch({
         type: ERROR_BLOG,
-        payload: err.response,
+        payload: err.response.data.message,
       })
     }
   }
