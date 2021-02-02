@@ -2,7 +2,9 @@ import {
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
-  CLEAR_ERRORS,
+  // CLEAR_ERRORS,
+  LOGOUT,
+  LOGIN_SUCCESS,
 } from '../types'
 
 const authReducer = (state, action) => {
@@ -11,16 +13,20 @@ const authReducer = (state, action) => {
       return {
         loading: true,
       }
+
     case REGISTER_SUCCESS:
       localStorage.setItem('token', action.payload.token)
+
       return {
         ...state,
         ...action.payload,
         isAuthenticated: true,
         loading: false,
       }
+
     case REGISTER_FAIL:
       localStorage.removeItem('token')
+
       return {
         ...state,
         token: null,
@@ -29,11 +35,34 @@ const authReducer = (state, action) => {
         user: null,
         error: action.payload,
       }
-    case CLEAR_ERRORS:
+
+    case LOGIN_SUCCESS:
+      localStorage.setItem('token', action.payload.token)
+
       return {
         ...state,
-        error: null,
+        ...action.payload,
+        isAuthenticated: true,
+        loading: false
       }
+
+    case LOGOUT:
+      localStorage.removeItem('token')
+
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        loading: false,
+        user: null,
+        error: action.payload
+      }
+
+    // case CLEAR_ERRORS:
+    //   return {
+    //     ...state,
+    //     error: null,
+    //   }
     default:
       return state
   }

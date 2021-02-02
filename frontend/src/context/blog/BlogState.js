@@ -6,7 +6,6 @@ import {
   ERROR_BLOG,
   GET_ALL_BLOGS,
   GET_ONE_BLOG,
-  REQUEST_BLOGS,
   CREATE_BLOG,
 } from '../types'
 
@@ -22,7 +21,6 @@ const BlogState = (props) => {
 
   const getBlogs = async () => {
     try {
-      dispatch({ type: REQUEST_BLOGS, loading: true })
       const res = await axios.get('/api/blogs')
 
       dispatch({
@@ -40,10 +38,7 @@ const BlogState = (props) => {
 
   const getBlog = async (blogId) => {
     try {
-      dispatch({ type: REQUEST_BLOGS, loading: true })
       const res = await axios.get(`/api/blogs/${blogId}`)
-
-      // console.log('blog: ', res.data)
 
       dispatch({
         type: GET_ONE_BLOG,
@@ -59,13 +54,12 @@ const BlogState = (props) => {
   }
 
   const createBlog = async (blogData) => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-
+    
     try {
+      const config = {
+        headers: { 'Content-Type': 'application/json' },
+      }
+
       const res = await axios.post('/api/blogs', blogData, config)
 
       dispatch({ type: CREATE_BLOG, payload: res.data })

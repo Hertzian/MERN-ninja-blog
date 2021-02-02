@@ -11,6 +11,11 @@ import Alerts from './components/Alerts'
 import AuthState from './context/auth/AuthState'
 import BlogState from './context/blog/BlogState'
 import AlertState from './context/alert/AlertState'
+import setAuthToken from './utils/setAuthToken'
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token)
+}
 
 function App() {
   return (

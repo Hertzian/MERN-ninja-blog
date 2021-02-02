@@ -1,9 +1,13 @@
 import { useState, useContext } from 'react'
 import AlertContext from '../context/alert/alertContext'
+import AuthContext from '../context/auth/authContext'
 
 const LoginPage = () => {
   const alertContext = useContext(AlertContext)
   const { setAlert } = alertContext
+
+  const authContext = useContext(AuthContext)
+  const {login, token} = authContext
 
   const [user, setUser] = useState({
     email: '',
@@ -28,10 +32,13 @@ const LoginPage = () => {
       setAlert('To short your pass...', 'danger')
     }else{
       setAlert('You are logged in!', 'success')
-
     }
-    // console.log(user)
-    // console.log('login success!')
+
+    login({email, password})
+    console.log(email, password)
+    console.log(user)
+    console.log(token)
+    console.log('login success!')
   }
 
   return (

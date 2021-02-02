@@ -45,10 +45,6 @@ const RegisterPage = () => {
 
     }else {
       register({name, email, password})
-
-      // console.log(password.length)
-      // console.log(user)
-      // console.log('login success!')
     }
   }
 

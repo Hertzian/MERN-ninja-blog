@@ -12,11 +12,13 @@ export const LOGOUT = 'LOGOUT'
 export const REGISTER_REQUEST = 'REGISTER_REQUEST'
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 export const REGISTER_FAIL = 'REGISTER_FAIL'
+// user
+export const USER_LOADED = 'USER_LOADED'
 // clear errors
 export const CLEAR_ERRORS = 'CLEAR_ERRORS'
 
 // blog
-export const REQUEST_BLOGS = 'REQUEST_BLOGS' 
+// export const REQUEST_BLOGS = 'REQUEST_BLOGS' 
 export const GET_ALL_BLOGS = 'GET_ALL_BLOGS'
 export const GET_ONE_BLOG = 'GET_ONE_BLOG'
 export const CREATE_BLOG = 'CREATE_BLOG'
