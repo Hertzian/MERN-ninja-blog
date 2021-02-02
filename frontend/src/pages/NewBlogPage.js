@@ -3,7 +3,7 @@ import React from 'react'
 const NewBlogPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('new blog created!')
+    // console.log('new blog created!')
   }
   return (
     <div className='home'>

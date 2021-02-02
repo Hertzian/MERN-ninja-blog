@@ -1,6 +1,11 @@
-import { REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAIL, CLEAR_ERRORS } from '../types'
+import {
+  REGISTER_REQUEST,
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+  CLEAR_ERRORS,
+} from '../types'
 
-export default (state, action) => {
+const authReducer = (state, action) => {
   switch (action.type) {
     case REGISTER_REQUEST:
       return {
@@ -12,24 +17,26 @@ export default (state, action) => {
         ...state,
         ...action.payload,
         isAuthenticated: true,
-        loading: false
+        loading: false,
       }
     case REGISTER_FAIL:
       localStorage.removeItem('token')
-      return{
+      return {
         ...state,
         token: null,
         isAuthenticated: false,
         loading: false,
         user: null,
-        error: action.payload
+        error: action.payload,
       }
     case CLEAR_ERRORS:
       return {
         ...state,
-        error: null
+        error: null,
       }
     default:
       return state
   }
 }
+
+export default authReducer

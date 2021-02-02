@@ -64,12 +64,12 @@ const AuthState = ({ children }) => {
       dispatch({ type: REGISTER_SUCCESS, payload: res.data })
     } catch (err) {
       dispatch({ type: REGISTER_FAIL, payload: err.response.data.message })
-      console.log(err.response.data.message)
+      // console.log(err.response.data.message)
     }
   }
 
   const logout = () => {
-    console.log('logout')
+    // console.log('logout')
   }
 
   const clearErrors = () => dispatch({ type: CLEAR_ERRORS })

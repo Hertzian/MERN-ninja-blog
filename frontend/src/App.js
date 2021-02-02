@@ -9,26 +9,29 @@ import RegisterPage from './pages/RegisterPage'
 import Alerts from './components/Alerts'
 
 import AuthState from './context/auth/AuthState'
+import BlogState from './context/blog/BlogState'
 import AlertState from './context/alert/AlertState'
 
 function App() {
   return (
     <AuthState>
-      <AlertState>
-        <div className='App'>
-          <Router>
-            <NavBar />
-            <div className='content'>
-              <Alerts />
-              <Route path='/' component={HomePage} exact />
-              <Route path='/login' component={LoginPage} exact />
-              <Route path='/register' component={RegisterPage} exact />
-              <Route path='/new-blog' component={NewBlogPage} />
-              <Route path='/post/:id' component={BlogDetailPage} />
-            </div>
-          </Router>
-        </div>
-      </AlertState>
+      <BlogState>
+        <AlertState>
+          <div className='App'>
+            <Router>
+              <NavBar />
+              <div className='content'>
+                <Alerts />
+                <Route path='/' component={HomePage} exact />
+                <Route path='/login' component={LoginPage} exact />
+                <Route path='/register' component={RegisterPage} exact />
+                <Route path='/new-blog' component={NewBlogPage} />
+                <Route path='/post/:id' component={BlogDetailPage} />
+              </div>
+            </Router>
+          </div>
+        </AlertState>
+      </BlogState>
     </AuthState>
   )
 }

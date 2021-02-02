@@ -30,8 +30,8 @@ const LoginPage = () => {
       setAlert('You are logged in!', 'success')
 
     }
-    console.log(user)
-    console.log('login success!')
+    // console.log(user)
+    // console.log('login success!')
   }
 
   return (
