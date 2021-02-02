@@ -1,7 +1,7 @@
 import {
   GET_ALL_BLOGS,
   // CREATE_BLOG,
-  // GET_ONE_BLOG,
+  GET_ONE_BLOG,
   // UPDATE_BLOG,
   // DELETE_BLOG,
   ERROR_BLOG,
@@ -16,10 +16,17 @@ const blogReducer = (state, action) => {
         blogs: action.payload,
       }
 
+    case GET_ONE_BLOG:
+      return {
+        ...state,
+        loading: false,
+        blogs: action.payload
+      }
+
     case ERROR_BLOG:
       return {
         ...state,
-        error: action.payload
+        error: action.payload,
       }
 
     default:

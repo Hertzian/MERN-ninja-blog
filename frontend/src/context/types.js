@@ -16,7 +16,7 @@ export const REGISTER_FAIL = 'REGISTER_FAIL'
 export const CLEAR_ERRORS = 'CLEAR_ERRORS'
 
 // blog
-export const REQUEST_BLO = 'REQUEST_BLOGS' 
+export const REQUEST_BLOGS = 'REQUEST_BLOGS' 
 export const GET_ALL_BLOGS = 'GET_ALL_BLOGS'
 export const GET_ONE_BLOG = 'GET_ONE_BLOG'
 export const CREATE_BLOG = 'CREATE_BLOG'
