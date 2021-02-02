@@ -7,11 +7,13 @@ import {
   GET_ALL_BLOGS,
   GET_ONE_BLOG,
   REQUEST_BLOGS,
+  CREATE_BLOG,
 } from '../types'
 
 const BlogState = (props) => {
   const initialState = {
     blogs: null,
+    blog: null,
     error: null,
     loading: true,
   }
@@ -56,14 +58,36 @@ const BlogState = (props) => {
     }
   }
 
+  const createBlog = async (blogData) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
+
+    try {
+      const res = await axios.post('/api/blogs', blogData, config)
+
+      dispatch({ type: CREATE_BLOG, payload: res.data })
+    } catch (err) {
+      console.error('err: ', err)
+      dispatch({
+        type: ERROR_BLOG,
+        payload: err.response,
+      })
+    }
+  }
+
   return (
     <BlogContext.Provider
       value={{
         blogs: state.blogs,
+        blog: state.blog,
         error: state.error,
         loading: state.loading,
         getBlogs,
         getBlog,
+        createBlog,
       }}
     >
       {props.children}

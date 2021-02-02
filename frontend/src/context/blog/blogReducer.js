@@ -20,7 +20,7 @@ const blogReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        blogs: action.payload
+        blog: action.payload
       }
 
     case ERROR_BLOG:

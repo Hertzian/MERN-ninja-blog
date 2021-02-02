@@ -5,6 +5,7 @@ const NewBlogPage = () => {
     e.preventDefault()
     // console.log('new blog created!')
   }
+  
   return (
     <div className='home'>
       <h2>NewBlog</h2>

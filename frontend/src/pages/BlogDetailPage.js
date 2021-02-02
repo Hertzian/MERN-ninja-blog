@@ -1,11 +1,10 @@
 import { useEffect, useContext } from 'react'
-import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import { Link } from 'react-router-dom'
 import BlogContext from '../context/blog/blogContext'
 
 const BlogDetailPage = ({ match }) => {
-  // const BlogDetailPage = (props) => {
   const blogContext = useContext(BlogContext)
-  const { loading, blogs, getBlog } = blogContext
+  const { loading, blog, getBlog } = blogContext
 
   useEffect(() => {
     getBlog(match.params.id)
@@ -16,11 +15,11 @@ const BlogDetailPage = ({ match }) => {
     <>
       {loading && <h3>loading...</h3>}
 
-      {blogs !== null && !loading ? (
+      {blog !== null && !loading ? (
         <div className='blog-details'>
-          <h2>{blogs.title}</h2>
-          {/* <div>By {blogs.author.name}</div> */}
-          <div>{blogs.body}</div>
+          <h2>{blog.title}</h2>
+          <div>By {blog.author.name}</div>
+          <div>{blog.body}</div>
           <Link to={'/'}>Go back</Link>
         </div>
       ) : (
