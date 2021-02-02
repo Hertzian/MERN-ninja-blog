@@ -1,4 +1,3 @@
-import { set } from 'mongoose'
 import React, { useState, useContext, useEffect } from 'react'
 import AlertContext from '../context/alert/alertContext'
 import AuthContext from '../context/auth/authContext'
@@ -16,7 +15,7 @@ const RegisterPage = () => {
       setAlert(error, 'danger')
       clearErrors()
     }
-  }, [error, setAlert])
+  }, [error, setAlert, clearErrors])
 
   const [user, setUser] = useState({
     name: '',

@@ -14,3 +14,9 @@ export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 export const REGISTER_FAIL = 'REGISTER_FAIL'
 // clear errors
 export const CLEAR_ERRORS = 'CLEAR_ERRORS'
+
+// blog
+export const GET_ALL_BLOGS = 'GET_ALL_BLOGS'
+export const GET_SINGLE_BLOG = 'GET_SINGLE_BLOG'
+export const UPDATE_BLOG = 'UPDATE_BLOG'
+

@@ -6,7 +6,9 @@
   "scripts": {
     "server": "nodemon backend/server.js",
     "client": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "destroy": "node backend/seeder.js -d",
+    "insert": "node backend/seeder.js -i"
   },
   "author": "",
   "license": "ISC",

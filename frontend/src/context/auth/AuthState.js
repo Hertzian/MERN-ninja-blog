@@ -10,7 +10,7 @@ import {
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
 } from '../types'
 
 const AuthState = ({ children }) => {
@@ -28,10 +28,6 @@ const AuthState = ({ children }) => {
     if (localStorage.token) {
       setAuthToken(localStorage.token)
     }
-
-    try {
-      const res = await axios.get()
-    } catch (error) {}
   }
 
   const login = async (formData) => {
@@ -76,7 +72,7 @@ const AuthState = ({ children }) => {
     console.log('logout')
   }
 
-  const clearErrors = () => dispatch({type: CLEAR_ERRORS})
+  const clearErrors = () => dispatch({ type: CLEAR_ERRORS })
 
   return (
     <authContext.Provider
