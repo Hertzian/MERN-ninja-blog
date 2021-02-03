@@ -10,7 +10,7 @@ import {
   // REGISTER_REQUEST,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
-  // CLEAR_ERRORS,
+  CLEAR_ERRORS,
   USER_LOADED,
   LOGOUT,
 } from '../types'
@@ -19,7 +19,6 @@ const AuthState = ({ children }) => {
   const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: null,
-    user: null,
     loading: true,
     error: null,
   }
@@ -89,7 +88,7 @@ const AuthState = ({ children }) => {
     dispatch({ type: LOGOUT })
   }
 
-  // const clearErrors = () => dispatch({ type: CLEAR_ERRORS })
+  const clearErrors = () => dispatch({ type: CLEAR_ERRORS })
 
   return (
     <AuthContext.Provider
@@ -103,7 +102,7 @@ const AuthState = ({ children }) => {
         loadUser,
         login,
         logout,
-        // clearErrors,
+        clearErrors,
       }}
     >
       {children}

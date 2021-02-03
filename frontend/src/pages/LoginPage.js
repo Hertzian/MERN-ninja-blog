@@ -1,13 +1,24 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import AlertContext from '../context/alert/alertContext'
 import AuthContext from '../context/auth/authContext'
 
-const LoginPage = () => {
+const LoginPage = (props) => {
   const alertContext = useContext(AlertContext)
   const { setAlert } = alertContext
 
   const authContext = useContext(AuthContext)
-  const {login, token} = authContext
+  const { login, error, token, isAuthenticated, clearErrors } = authContext
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/')
+    }
+
+    if (error === 'Invalid credentials') {
+      setAlert('error', 'danger')
+      clearErrors()
+    }
+  }, [isAuthenticated, props.history, error])
 
   const [user, setUser] = useState({
     email: '',
@@ -26,15 +37,15 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    if(email === '' || password === ''){
+    if (email === '' || password === '') {
       setAlert('All fields pls ;)', 'danger')
-    }else if(password.length < 8){
+    } else if (password.length < 8) {
       setAlert('To short your pass...', 'danger')
-    }else{
+    } else {
       setAlert('You are logged in!', 'success')
     }
 
-    login({email, password})
+    login({ email, password })
     console.log(email, password)
     console.log(user)
     console.log(token)

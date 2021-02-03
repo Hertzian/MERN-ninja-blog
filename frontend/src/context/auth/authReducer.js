@@ -2,7 +2,7 @@ import {
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
-  // CLEAR_ERRORS,
+  CLEAR_ERRORS,
   LOGOUT,
   LOGIN_SUCCESS,
 } from '../types'
@@ -58,11 +58,11 @@ const authReducer = (state, action) => {
         error: action.payload
       }
 
-    // case CLEAR_ERRORS:
-    //   return {
-    //     ...state,
-    //     error: null,
-    //   }
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      }
     default:
       return state
   }

@@ -11,6 +11,20 @@ a {
   text-decoration: none;
 }
 
+button {
+  background-color: #f1356d;
+  color: #fff;
+  padding: 0.3rem 0.5rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: inherit;
+}
+
+button:hover {
+  background-color: #ad1c48;
+}
+
 .navbar {
   padding: 20px;
   display: flex;
@@ -64,7 +78,7 @@ a {
 .blog-preview a {
   text-decoration: none;
   color: #fff;
-  padding: .3rem .5rem;
+  padding: 0.3rem 0.5rem;
   border-radius: 5px;
   background-color: #f1356d;
 }
@@ -84,7 +98,8 @@ a {
   margin: 20px 0;
 }
 
-.blog-details button, .blog-details a {
+.blog-details button,
+.blog-details a {
   background-color: #f1356d;
   color: #fff;
   border: 0;
@@ -131,6 +146,10 @@ a {
   cursor: pointer;
 }
 
+.create button:hover {
+  background-color: #ad1c48;
+}
+
 /* alerts */
 .alert {
   color: #fff;
@@ -140,10 +159,10 @@ a {
   border-radius: 8px;
 }
 
-.alert-danger{
+.alert-danger {
   background-color: #f1356d;
 }
 
-.alert-success{
+.alert-success {
   background-color: #0dcef0;
 }
