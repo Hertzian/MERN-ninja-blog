@@ -7,9 +7,9 @@ const BlogDetailPage = ({ match }) => {
   const { loading, blog, getBlog } = blogContext
 
   useEffect(() => {
-    getBlog(match.params.id)
+    getBlog(match.params.blogId)
     // eslint-disable-next-line
-  }, [match.params.id])
+  }, [match.params.blogId])
 
   return (
     <>

@@ -24,10 +24,10 @@ const BlogPreview = ({ title, id, author }) => {
     <div className='blog-preview'>
       <h2>{title}</h2>
       <p>by {author.name}</p>
-      <Link to={`/post/${id}`}>View more</Link>
+      <Link to={`/blog/${id}`}>View more</Link>
       {user.name === author.name && (
         <>
-          <Link to={`/update/${id}`}>Update</Link>
+          <Link to={`/update-blog/${id}`}>Update</Link>
           <button onClick={deleteHandler}>Delete</button>
         </>
       )}

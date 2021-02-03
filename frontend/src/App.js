@@ -31,7 +31,8 @@ function App() {
                 <Route path='/login' component={LoginPage} exact />
                 <Route path='/register' component={RegisterPage} exact />
                 <Route path='/new-blog' component={NewBlogPage} />
-                <Route path='/post/:id' component={BlogDetailPage} />
+                <Route path='/blog/:blogId' component={BlogDetailPage} />
+                <Route path='/update-blog/:blogId' component={NewBlogPage} />
               </div>
               <Footer />
             </Router>
