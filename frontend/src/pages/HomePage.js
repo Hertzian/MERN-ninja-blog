@@ -38,7 +38,7 @@ const HomePage = () => {
       {loading && <h3>loading...</h3>}
       {blogs !== null && !loading ? (
         blogs.map((blog, index) => (
-          <BlogPreview title={blog.title} id={blog._id} key={index} />
+          <BlogPreview title={blog.title} id={blog._id} key={index} author={blog.author} />
         ))
       ) : (
         <h4>No blogs yet...</h4>
