@@ -4,15 +4,14 @@ import AuthContext from './authContext'
 import authReducer from './authReducer'
 import setAuthToken from '../../utils/setAuthToken'
 import {
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  // REGISTER_REQUEST,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
-  CLEAR_ERRORS,
   USER_LOADED,
+  AUTH_ERROR,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
   LOGOUT,
+  CLEAR_ERRORS,
 } from '../types'
 
 const AuthState = ({ children }) => {
@@ -40,7 +39,7 @@ const AuthState = ({ children }) => {
     } catch (err) {
       console.error('err: ', err.message)
       dispatch({
-        type: USER_LOADED,
+        type: AUTH_ERROR,
         payload: err.response.data.message,
       })
     }
@@ -48,8 +47,6 @@ const AuthState = ({ children }) => {
 
   const login = async (formData) => {
     try {
-      dispatch({ type: LOGIN_REQUEST })
-
       const config = {
         headers: { 'Content-Type': 'application/json' },
       }
@@ -79,7 +76,6 @@ const AuthState = ({ children }) => {
 
       loadUser()
     } catch (err) {
-      console.log(err.response.data.message)
       dispatch({ type: REGISTER_FAIL, payload: err.response.data.message })
     }
   }
@@ -95,8 +91,8 @@ const AuthState = ({ children }) => {
       value={{
         token: state.token,
         isAuthenticated: state.isAuthenticated,
-        user: state.user,
         loading: state.loading,
+        // user: state.user,
         error: state.error,
         register,
         loadUser,

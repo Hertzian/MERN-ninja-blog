@@ -4,10 +4,10 @@ import AuthContext from '../context/auth/authContext'
 
 const LoginPage = (props) => {
   const alertContext = useContext(AlertContext)
-  const { setAlert } = alertContext
-
   const authContext = useContext(AuthContext)
-  const { login, error, token, isAuthenticated, clearErrors } = authContext
+  
+  const { setAlert } = alertContext
+  const { login, error, isAuthenticated, clearErrors } = authContext
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -18,7 +18,7 @@ const LoginPage = (props) => {
       setAlert('error', 'danger')
       clearErrors()
     }
-  }, [isAuthenticated, props.history, error])
+  }, [isAuthenticated, props.history, error, setAlert, clearErrors])
 
   const [user, setUser] = useState({
     email: '',
@@ -46,10 +46,6 @@ const LoginPage = (props) => {
     }
 
     login({ email, password })
-    console.log(email, password)
-    console.log(user)
-    console.log(token)
-    console.log('login success!')
   }
 
   return (

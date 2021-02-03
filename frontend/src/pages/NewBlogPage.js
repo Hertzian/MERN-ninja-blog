@@ -9,9 +9,8 @@ const NewBlogPage = () => {
   })
 
   const authContext = useContext(AuthContext)
-  const { loadUser, user } = authContext
+  const { loadUser } = authContext
 
-  console.log(user)
 
   const blogContext = useContext(BlogContext)
   const { loading, createBlog } = blogContext
