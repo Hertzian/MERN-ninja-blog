@@ -1,6 +1,7 @@
 import './App.css'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import NavBar from './components/NavBar'
+import Footer from './components/Footer'
 import HomePage from './pages/HomePage'
 import NewBlogPage from './pages/NewBlogPage'
 import BlogDetailPage from './pages/BlogDetailPage'
@@ -33,6 +34,7 @@ function App() {
                 <Route path='/new-blog' component={NewBlogPage} />
                 <Route path='/post/:id' component={BlogDetailPage} />
               </div>
+              <Footer />
             </Router>
           </div>
         </AlertState>

@@ -150,6 +150,10 @@ button:hover {
   background-color: #ad1c48;
 }
 
+.footer span {
+  color: #f1356d;
+}
+
 /* alerts */
 .alert {
   color: #fff;
