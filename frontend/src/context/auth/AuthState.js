@@ -52,6 +52,7 @@ const AuthState = ({ children }) => {
       }
 
       const res = await axios.post(`/api/users/login`, formData, config)
+      console.log('disque: ', res.data)
 
       dispatch({ type: LOGIN_SUCCESS, payload: res.data })
 
@@ -92,7 +93,7 @@ const AuthState = ({ children }) => {
         token: state.token,
         isAuthenticated: state.isAuthenticated,
         loading: state.loading,
-        // user: state.user,
+        user: state.user,
         error: state.error,
         register,
         loadUser,
