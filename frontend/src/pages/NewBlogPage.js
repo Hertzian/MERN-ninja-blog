@@ -20,7 +20,7 @@ const NewBlogPage = () => {
 
   useEffect(() => {
     loadUser()
-  }, [])
+  }, [loadUser])
 
   const onChange = (e) => {
     setBlog({

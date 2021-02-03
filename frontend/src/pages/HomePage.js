@@ -7,11 +7,13 @@ const HomePage = () => {
   const authContext = useContext(AuthContext)
   const blogContext = useContext(BlogContext)
 
-  const { loadUser } = authContext
+  const { loadUser, token } = authContext
   const { blogs, getBlogs, loading } = blogContext
 
   useEffect(() => {
-    loadUser()
+    if (token) {
+      loadUser()
+    }
     getBlogs()
     // eslint-disable-next-line
   }, [])

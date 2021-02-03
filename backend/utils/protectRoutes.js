@@ -32,7 +32,6 @@ const protect = asyncHandler(async(req, res, next) => {
 })
 
 const isAdmin = (req, res, next) => {
-  // console.log('*****************el console log*****************', req.user)
 
   if(req.user && req.user.role === 'admin') {
     next()

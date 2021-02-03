@@ -7,8 +7,6 @@ const asyncHandler = require('../utils/asyncHandler')
 exports.getBlogs = asyncHandler(async (req, res) => {
   const blogs = await Blog.find().populate('author')
 
-  console.log(blogs)
-
   if (blogs) {
     res.json(blogs)
   } else {
@@ -23,8 +21,6 @@ exports.getBlogs = asyncHandler(async (req, res) => {
 exports.getBlogById = asyncHandler(async (req, res) => {
   const blog = await Blog.findById(req.params.blogId).populate('author')
 
-  // console.log(blog)
-
   if (blog) {
     res.json(blog)
   } else {
@@ -38,10 +34,6 @@ exports.getBlogById = asyncHandler(async (req, res) => {
 // @access  private
 exports.updateOwnerBlog = asyncHandler(async (req, res) => {
   const blog = await Blog.findById(req.params.blogId)
-
-  // console.log(blog)
-  // console.log('log 1:', String(req.user._id))
-  // console.log('log 2:', String(blog.author))
 
   if (blog) {
     if (String(blog.author) === String(req.user._id)) {
@@ -88,8 +80,6 @@ exports.createBlog = asyncHandler(async (req, res) => {
 // @access  private/admin
 exports.deleteBlog = asyncHandler(async (req, res) => {
   const blog = await Blog.findById(req.params.blogId)
-
-  console.log(blog)
 
   if (blog) {
     await blog.remove()

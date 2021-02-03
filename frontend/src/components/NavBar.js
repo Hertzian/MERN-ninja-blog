@@ -20,14 +20,18 @@ const NavBar = () => {
       <h1>The Ninja Blog!</h1>
       <div className='links'>
         <Link to='/'>Home</Link>
-        <Link to='/new-blog'>New Blog</Link>
         {!isAuthenticated && (
           <>
             <Link to='/login'>Login</Link>
             <Link to='/register'>Register</Link>
           </>
         )}
-        {isAuthenticated && <button onClick={handleLogout}>Logout</button>}
+        {isAuthenticated && (
+          <>
+            <Link to='/new-blog'>New Blog</Link>
+            <button onClick={handleLogout}>Logout</button>
+          </>
+        )}
       </div>
     </nav>
   )
