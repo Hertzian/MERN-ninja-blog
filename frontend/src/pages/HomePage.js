@@ -1,13 +1,17 @@
 import { useContext, useEffect } from 'react'
 import BlogPreview from '../components/BlogPreview'
 import BlogContext from '../context/blog/blogContext'
+import AuthContext from '../context/auth/authContext'
 
 const HomePage = () => {
+  const authContext = useContext(AuthContext)
   const blogContext = useContext(BlogContext)
 
+  const { loadUser } = authContext
   const { blogs, getBlogs, loading } = blogContext
 
   useEffect(() => {
+    loadUser()
     getBlogs()
     // eslint-disable-next-line
   }, [])

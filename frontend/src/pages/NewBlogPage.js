@@ -1,23 +1,44 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import BlogContext from '../context/blog/blogContext'
 import AuthContext from '../context/auth/authContext'
+import AlertContext from '../context/alert/alertContext'
 
 const NewBlogPage = () => {
+  const authContext = useContext(AuthContext)
+  const blogContext = useContext(BlogContext)
+  const alertContext = useContext(AlertContext)
+
+  const { loadUser, user } = authContext
+  const { createBlog } = blogContext
+  const { setAlert } = alertContext
+
   const [blog, setBlog] = useState({
     title: '',
     body: '',
+    author: '',
   })
 
-  const authContext = useContext(AuthContext)
-  const { loadUser } = authContext
+  useEffect(() => {
+    loadUser()
+  }, [])
 
-
-  const blogContext = useContext(BlogContext)
-  const { loading, createBlog } = blogContext
+  const onChange = (e) => {
+    setBlog({
+      ...blog,
+      [e.target.name]: e.target.value,
+      author: user.name,
+    })
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('new blog created!')
+
+    if (blog.title === '' || blog.body === '') {
+      setAlert('All fields plz :)', 'danger')
+    } else {
+      createBlog(blog)
+      setAlert('You have a new blog!', 'success')
+    }
   }
 
   return (
@@ -27,11 +48,11 @@ const NewBlogPage = () => {
         <label htmlFor='title' className='create label'>
           Title:
         </label>
-        <input name='title' type='text' />
+        <input name='title' type='text' onChange={onChange} />
         <label htmlFor='body' className='create label'>
           Body:
         </label>
-        <textarea name='body' />
+        <textarea name='body' onChange={onChange} />
         <button>Submit</button>
       </form>
     </div>

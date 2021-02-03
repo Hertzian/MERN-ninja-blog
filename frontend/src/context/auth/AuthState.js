@@ -52,7 +52,6 @@ const AuthState = ({ children }) => {
       }
 
       const res = await axios.post(`/api/users/login`, formData, config)
-      console.log('disque: ', res.data)
 
       dispatch({ type: LOGIN_SUCCESS, payload: res.data })
 
