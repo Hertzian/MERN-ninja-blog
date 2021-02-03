@@ -183,6 +183,7 @@ button:hover {
 
 /* alerts */
 .alert {
+  margin: .5rem 0;
   color: #fff;
   background-color: #333;
   border: 0;

@@ -3,7 +3,7 @@ import BlogContext from '../context/blog/blogContext'
 import AuthContext from '../context/auth/authContext'
 import AlertContext from '../context/alert/alertContext'
 
-const NewBlogPage = () => {
+const NewBlogPage = ({history}) => {
   const authContext = useContext(AuthContext)
   const blogContext = useContext(BlogContext)
   const alertContext = useContext(AlertContext)
@@ -20,7 +20,8 @@ const NewBlogPage = () => {
 
   useEffect(() => {
     loadUser()
-  }, [loadUser])
+    // eslint-disable-next-line
+  }, [])
 
   const onChange = (e) => {
     setBlog({
@@ -37,6 +38,7 @@ const NewBlogPage = () => {
       setAlert('All fields plz :)', 'danger')
     } else {
       createBlog(blog)
+      history.push('/')
       setAlert('You have a new blog!', 'success')
     }
   }

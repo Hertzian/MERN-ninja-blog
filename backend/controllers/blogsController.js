@@ -31,12 +31,12 @@ exports.getBlogById = asyncHandler(async (req, res) => {
 
 // @desc    update blog
 // @route   PUT /api/users/blogs/:blogId
-// @access  private
+// @access  private/admin
 exports.updateOwnerBlog = asyncHandler(async (req, res) => {
   const blog = await Blog.findById(req.params.blogId)
 
   if (blog) {
-    if (String(blog.author) === String(req.user._id)) {
+    if (String(blog.author) === String(req.user._id) || req.user.isAdmin) {
       blog.title = req.body.title || blog.title
       blog.body = req.body.body || blog.body
 
@@ -81,7 +81,7 @@ exports.createBlog = asyncHandler(async (req, res) => {
 exports.deleteBlog = asyncHandler(async (req, res) => {
   const blog = await Blog.findById(req.params.blogId)
 
-  if (blog) {
+  if (String(blog.author) === String(req.user._id) || req.user.isAdmin) {
     await blog.remove()
     res.json({ message: 'Blog removed' })
   } else {

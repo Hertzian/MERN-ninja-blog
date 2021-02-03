@@ -7,6 +7,7 @@ import {
   GET_ALL_BLOGS,
   GET_ONE_BLOG,
   CREATE_BLOG,
+  DELETE_BLOG,
 } from '../types'
 
 const BlogState = (props) => {
@@ -28,7 +29,6 @@ const BlogState = (props) => {
         payload: res.data,
       })
     } catch (err) {
-      console.error('err: ', err.response.message)
       dispatch({
         type: ERROR_BLOG,
         payload: err.response.data.message,
@@ -45,7 +45,6 @@ const BlogState = (props) => {
         payload: res.data,
       })
     } catch (err) {
-      console.error('err: ', err)
       dispatch({
         type: ERROR_BLOG,
         payload: err.response.data.message,
@@ -54,7 +53,6 @@ const BlogState = (props) => {
   }
 
   const createBlog = async (blogData) => {
-    
     try {
       const config = {
         headers: { 'Content-Type': 'application/json' },
@@ -64,11 +62,20 @@ const BlogState = (props) => {
 
       dispatch({ type: CREATE_BLOG, payload: res.data })
     } catch (err) {
-      console.error('err: ', err)
       dispatch({
         type: ERROR_BLOG,
         payload: err.response.data.message,
       })
+    }
+  }
+
+  const deleteBlog = async (blogId) => {
+    try {
+      await axios.delete(`/api/blogs/${blogId}`)
+
+      dispatch({ type: DELETE_BLOG, payload: blogId })
+    } catch (err) {
+      dispatch({ type: ERROR_BLOG, payload: err.response.data.message })
     }
   }
 
@@ -82,6 +89,7 @@ const BlogState = (props) => {
         getBlogs,
         getBlog,
         createBlog,
+        deleteBlog,
       }}
     >
       {props.children}

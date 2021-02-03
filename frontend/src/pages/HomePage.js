@@ -18,7 +18,7 @@ const HomePage = () => {
     // eslint-disable-next-line
   }, [])
 
-  if (blogs !== null && blogs.length === 0 && !loading) {
+  if (blogs !== null && blogs.length === 0 && !loading && blogs === undefined) {
     return <h4>no blogs...</h4>
   }
 
@@ -36,7 +36,7 @@ const HomePage = () => {
       </p>
 
       {loading && <h3>loading...</h3>}
-      {blogs !== null && !loading ? (
+      {blogs && !loading ? (
         blogs.map((blog, index) => (
           <BlogPreview title={blog.title} id={blog._id} key={index} author={blog.author} />
         ))

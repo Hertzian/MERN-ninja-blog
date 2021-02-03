@@ -1,9 +1,8 @@
 import {
   GET_ALL_BLOGS,
-  // CREATE_BLOG,
   GET_ONE_BLOG,
-  // UPDATE_BLOG,
-  // DELETE_BLOG,
+  CREATE_BLOG,
+  DELETE_BLOG,
   ERROR_BLOG,
 } from '../types'
 
@@ -17,12 +16,19 @@ const blogReducer = (state, action) => {
       }
 
     case GET_ONE_BLOG:
+    case CREATE_BLOG:
       return {
         ...state,
         loading: false,
         blog: action.payload
       }
-
+    
+    case DELETE_BLOG:
+      return {
+        ...state,
+        loading: false,
+        blogs: state.blogs.filter(blog => blog._id !== action.payload)
+      }
     case ERROR_BLOG:
       return {
         ...state,
