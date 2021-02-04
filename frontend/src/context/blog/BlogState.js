@@ -8,6 +8,7 @@ import {
   GET_ONE_BLOG,
   CREATE_BLOG,
   DELETE_BLOG,
+  CURRENT_BLOG
 } from '../types'
 
 const BlogState = (props) => {
@@ -15,6 +16,7 @@ const BlogState = (props) => {
     blogs: null,
     blog: null,
     error: null,
+    current: null,
     loading: true,
   }
 
@@ -64,6 +66,12 @@ const BlogState = (props) => {
     }
   }
 
+  const updateBlog = async (blogData) => {
+    console.log('updated Blog!: ', blogData)
+  }
+
+  const currentBlog = (blogId) => dispatch({type: CURRENT_BLOG, payload: blogId})
+
   return (
     <BlogContext.Provider
       value={{
@@ -71,10 +79,13 @@ const BlogState = (props) => {
         blog: state.blog,
         error: state.error,
         loading: state.loading,
+        current: state.current,
         getBlogs,
         getBlog,
         createBlog,
         deleteBlog,
+        updateBlog,
+        currentBlog
       }}
     >
       {props.children}
