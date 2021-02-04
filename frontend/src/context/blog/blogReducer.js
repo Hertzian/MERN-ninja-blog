@@ -4,7 +4,9 @@ import {
   CREATE_BLOG,
   DELETE_BLOG,
   ERROR_BLOG,
-  CURRENT_BLOG,
+  UPDATE_MODE_BLOG,
+  NEW_MODE_BLOG,
+  UPDATE_BLOG,
 } from '../types'
 
 const blogReducer = (state, action) => {
@@ -21,21 +23,31 @@ const blogReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        blog: action.payload
+        blog: action.payload,
       }
 
+    case UPDATE_BLOG:
     case DELETE_BLOG:
       return {
         ...state,
         loading: false,
-        blogs: state.blogs.filter((blog) => blog._id !== action.payload)
+        blogs: state.blogs.filter((blog) => blog._id !== action.payload),
       }
 
-    case CURRENT_BLOG:
+    case UPDATE_MODE_BLOG:
       return {
         ...state,
         loading: false,
-        current: action.payload
+        update: true,
+        blog: action.payload,
+      }
+
+    case NEW_MODE_BLOG:
+      return {
+        ...state,
+        loading: false,
+        update: false,
+        blog: null,
       }
 
     case ERROR_BLOG:

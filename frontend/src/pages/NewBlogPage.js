@@ -3,41 +3,70 @@ import BlogContext from '../context/blog/blogContext'
 import AuthContext from '../context/auth/authContext'
 import AlertContext from '../context/alert/alertContext'
 
-const NewBlogPage = ({history}) => {
+const NewBlogPage = ({ history, match }) => {
   const authContext = useContext(AuthContext)
   const blogContext = useContext(BlogContext)
   const alertContext = useContext(AlertContext)
 
   const { loadUser, user } = authContext
-  const { createBlog } = blogContext
+  const { createBlog, update, error, blog, updateBlog, resetMode } = blogContext
   const { setAlert } = alertContext
 
-  const [blog, setBlog] = useState({
+  const [formData, setFormData] = useState({
     title: '',
     body: '',
     author: '',
   })
 
+  console.log(blog)
+
   useEffect(() => {
     loadUser()
+
+    if (update) {
+      setFormData({
+        ...formData,
+        title: blog.title,
+        body: blog.body,
+        author: user.name,
+      })
+    } else {
+      resetMode()
+      setFormData({
+        title: '',
+        body: '',
+        author: '',
+      })
+      history.push('/new-blog')
+    }
+
+    if (match.path === '/new-blog') {
+      resetMode()
+    }
+
+    if (error) {
+      setAlert(error, 'danger')
+    }
     // eslint-disable-next-line
-  }, [])
+  }, [error, history, setAlert, blog, setFormData])
 
   const onChange = (e) => {
-    setBlog({
-      ...blog,
+    setFormData({
+      ...formData,
       [e.target.name]: e.target.value,
-      author: user.name,
+      // author: user.name,
     })
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    if (blog.title === '' || blog.body === '') {
-      setAlert('All fields plz :)', 'danger')
+    if (update) {
+      updateBlog(blog._id, formData)
+      history.push('/')
+      setAlert('You updated your blog!', 'success')
     } else {
-      createBlog(blog)
+      createBlog(formData)
       history.push('/')
       setAlert('You have a new blog!', 'success')
     }
@@ -45,16 +74,21 @@ const NewBlogPage = ({history}) => {
 
   return (
     <div className='home'>
-      <h2>NewBlog</h2>
+      <h2>{update ? 'Update Blog' : 'New Blog'}</h2>
       <form className='create' onSubmit={handleSubmit}>
         <label htmlFor='title' className='create label'>
           Title:
         </label>
-        <input name='title' type='text' onChange={onChange} />
+        <input
+          name='title'
+          type='text'
+          onChange={onChange}
+          value={formData.title || ''}
+        />
         <label htmlFor='body' className='create label'>
           Body:
         </label>
-        <textarea name='body' onChange={onChange} />
+        <textarea name='body' onChange={onChange} value={formData.body || ''} />
         <button>Submit</button>
       </form>
     </div>

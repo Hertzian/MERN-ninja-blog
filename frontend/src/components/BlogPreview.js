@@ -10,7 +10,7 @@ const BlogPreview = ({ title, id, author }) => {
   const alertContext = useContext(AlertContext)
 
   const { user, token, loadUser } = authContext
-  const { deleteBlog } = blogContext
+  const { deleteBlog, updateMode } = blogContext
   const { setAlert } = alertContext
 
   useEffect(() => {
@@ -25,6 +25,10 @@ const BlogPreview = ({ title, id, author }) => {
     setAlert('Blog gone!', 'success')
   }
 
+  const updateHandler = () => {
+    updateMode(id)
+  }
+
   return (
     <div className='blog-preview'>
       <h2>{title}</h2>
@@ -32,7 +36,7 @@ const BlogPreview = ({ title, id, author }) => {
       <Link to={`/blog/${id}`}>View more</Link>
       {user && user.name === author.name && (
         <>
-          <Link to={`/update-blog/${id}`}>Update</Link>
+          <Link to={`/update-blog/${id}`} onClick={updateHandler}>Update</Link>
           <button onClick={deleteHandler}>Delete</button>
         </>
       )}

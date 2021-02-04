@@ -8,7 +8,9 @@ import {
   GET_ONE_BLOG,
   CREATE_BLOG,
   DELETE_BLOG,
-  CURRENT_BLOG
+  UPDATE_MODE_BLOG,
+  NEW_MODE_BLOG,
+  UPDATE_BLOG,
 } from '../types'
 
 const BlogState = (props) => {
@@ -16,7 +18,7 @@ const BlogState = (props) => {
     blogs: null,
     blog: null,
     error: null,
-    current: null,
+    update: false,
     loading: true,
   }
 
@@ -66,11 +68,25 @@ const BlogState = (props) => {
     }
   }
 
-  const updateBlog = async (blogData) => {
-    console.log('updated Blog!: ', blogData)
+  const updateBlog = async (blogId, blogData) => {
+    try {
+      const config = {
+        headers: { 'Content-Type': 'application/json' },
+      }
+
+      const res = await axios.put(`/api/blogs/${blogId}`, blogData, config)
+
+      dispatch({ type: UPDATE_BLOG, payload: res.data })
+    } catch (err) {
+      dispatch({ type: ERROR_BLOG, payload: err.response.data.message })
+    }
   }
 
-  const currentBlog = (blogId) => dispatch({type: CURRENT_BLOG, payload: blogId})
+  const updateMode = (blogId) =>{
+    dispatch({ type: UPDATE_MODE_BLOG, payload: getBlog(blogId) })
+  }
+  
+  const resetMode = () => dispatch({type: NEW_MODE_BLOG})
 
   return (
     <BlogContext.Provider
@@ -79,13 +95,14 @@ const BlogState = (props) => {
         blog: state.blog,
         error: state.error,
         loading: state.loading,
-        current: state.current,
+        update: state.update,
         getBlogs,
         getBlog,
         createBlog,
         deleteBlog,
         updateBlog,
-        currentBlog
+        updateMode,
+        resetMode,
       }}
     >
       {props.children}
