@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import AuthContext from '../context/auth/authContext'
 import BlogContext from '../context/blog/blogContext'
@@ -9,13 +9,18 @@ const BlogPreview = ({ title, id, author }) => {
   const blogContext = useContext(BlogContext)
   const alertContext = useContext(AlertContext)
 
-  const { user } = authContext
+  const { user, token, loadUser } = authContext
   const { deleteBlog } = blogContext
   const { setAlert } = alertContext
 
-  const deleteHandler = () => {
-    console.log('blog deleted!')
+  useEffect(() => {
+    if (token) {
+      loadUser()
+    }
+    // eslint-disable-next-line
+  }, [token])
 
+  const deleteHandler = () => {
     deleteBlog(id)
     setAlert('Blog gone!', 'success')
   }
@@ -25,7 +30,7 @@ const BlogPreview = ({ title, id, author }) => {
       <h2>{title}</h2>
       <p>by {author.name}</p>
       <Link to={`/blog/${id}`}>View more</Link>
-      {user.name === author.name && (
+      {user && user.name === author.name && (
         <>
           <Link to={`/update-blog/${id}`}>Update</Link>
           <button onClick={deleteHandler}>Delete</button>

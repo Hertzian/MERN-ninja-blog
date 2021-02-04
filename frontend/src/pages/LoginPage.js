@@ -2,10 +2,10 @@ import { useState, useContext, useEffect } from 'react'
 import AlertContext from '../context/alert/alertContext'
 import AuthContext from '../context/auth/authContext'
 
-const LoginPage = ({history}) => {
+const LoginPage = ({ history }) => {
   const alertContext = useContext(AlertContext)
   const authContext = useContext(AuthContext)
-  
+
   const { setAlert } = alertContext
   const { login, error, isAuthenticated, clearErrors } = authContext
 
@@ -14,8 +14,8 @@ const LoginPage = ({history}) => {
       history.push('/')
     }
 
-    if (error === 'Invalid credentials') {
-      setAlert('error', 'danger')
+    if (error) {
+      setAlert(error, 'danger')
       clearErrors()
     }
   }, [isAuthenticated, history, error, setAlert, clearErrors])
@@ -42,10 +42,9 @@ const LoginPage = ({history}) => {
     } else if (password.length < 8) {
       setAlert('To short your pass...', 'danger')
     } else {
-      setAlert('You are logged in!', 'success')
+      login({ email, password })
+      !error && setAlert('You are logged in!', 'success')
     }
-
-    login({ email, password })
   }
 
   return (

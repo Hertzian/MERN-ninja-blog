@@ -16,7 +16,7 @@ const HomePage = () => {
     }
     getBlogs()
     // eslint-disable-next-line
-  }, [])
+  }, [token])
 
   if (blogs !== null && blogs.length === 0 && !loading && blogs === undefined) {
     return <h4>no blogs...</h4>

@@ -32,16 +32,9 @@ const AuthState = ({ children }) => {
     try {
       const res = await axios.get('/api/users/profile')
 
-      dispatch({
-        type: USER_LOADED,
-        payload: res.data,
-      })
+      dispatch({ type: USER_LOADED, payload: res.data })
     } catch (err) {
-      console.error('err: ', err.message)
-      dispatch({
-        type: AUTH_ERROR,
-        payload: err.response.data.message,
-      })
+      dispatch({ type: AUTH_ERROR, payload: err.response.data.message })
     }
   }
 
@@ -57,10 +50,7 @@ const AuthState = ({ children }) => {
 
       loadUser()
     } catch (err) {
-      dispatch({
-        type: LOGIN_FAIL,
-        payload: err.response.data.message,
-      })
+      dispatch({ type: LOGIN_FAIL, payload: err.response.data.message })
     }
   }
 
@@ -80,9 +70,7 @@ const AuthState = ({ children }) => {
     }
   }
 
-  const logout = () => {
-    dispatch({ type: LOGOUT })
-  }
+  const logout = () => dispatch({ type: LOGOUT })
 
   const clearErrors = () => dispatch({ type: CLEAR_ERRORS })
 

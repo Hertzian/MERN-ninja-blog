@@ -24,15 +24,9 @@ const BlogState = (props) => {
     try {
       const res = await axios.get('/api/blogs')
 
-      dispatch({
-        type: GET_ALL_BLOGS,
-        payload: res.data,
-      })
+      dispatch({ type: GET_ALL_BLOGS, payload: res.data })
     } catch (err) {
-      dispatch({
-        type: ERROR_BLOG,
-        payload: err.response.data.message,
-      })
+      dispatch({ type: ERROR_BLOG, payload: err.response.data.message })
     }
   }
 
@@ -40,15 +34,9 @@ const BlogState = (props) => {
     try {
       const res = await axios.get(`/api/blogs/${blogId}`)
 
-      dispatch({
-        type: GET_ONE_BLOG,
-        payload: res.data,
-      })
+      dispatch({ type: GET_ONE_BLOG, payload: res.data })
     } catch (err) {
-      dispatch({
-        type: ERROR_BLOG,
-        payload: err.response.data.message,
-      })
+      dispatch({ type: ERROR_BLOG, payload: err.response.data.message })
     }
   }
 
@@ -62,10 +50,7 @@ const BlogState = (props) => {
 
       dispatch({ type: CREATE_BLOG, payload: res.data })
     } catch (err) {
-      dispatch({
-        type: ERROR_BLOG,
-        payload: err.response.data.message,
-      })
+      dispatch({ type: ERROR_BLOG, payload: err.response.data.message })
     }
   }
 
