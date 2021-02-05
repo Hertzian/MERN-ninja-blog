@@ -43,9 +43,12 @@ exports.updateOwnerBlog = asyncHandler(async (req, res) => {
       const updateBlog = await blog.save()
 
       res.json({
-        _id: updateBlog._id,
-        title: updateBlog.title,
-        body: updateBlog.body,
+        message: 'Yay, just updated your blog!',
+        blog: {
+          _id: updateBlog._id,
+          title: updateBlog.title,
+          body: updateBlog.body,
+        },
       })
     } else {
       res.status(401).json({ message: 'Not blog owner' })
@@ -66,14 +69,12 @@ exports.createBlog = asyncHandler(async (req, res) => {
   const blog = await Blog.create({ title, body, author: req.user._id })
 
   if (blog) {
-    res.status(201).json(blog)
+    res.status(201).json({ message: 'You have a new blog!', blog })
   } else {
     res.status(400).json({ message: 'Invalid data' })
     throw new Error('Invalid data')
   }
 })
-
-// admin routes ********************************
 
 // @desc    delete blog
 // @route   DELETE /api/users/blogs/:blogId
@@ -83,7 +84,7 @@ exports.deleteBlog = asyncHandler(async (req, res) => {
 
   if (String(blog.author) === String(req.user._id) || req.user.isAdmin) {
     await blog.remove()
-    res.json({ message: 'Blog removed' })
+    res.json({ message: 'Your blog is gone!', blog: {} })
   } else {
     res.status(404).json({ message: 'Blog not found' })
     throw new Error('Blog not found')
