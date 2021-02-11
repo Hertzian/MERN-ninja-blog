@@ -43,12 +43,9 @@ exports.updateOwnerBlog = asyncHandler(async (req, res) => {
       const updateBlog = await blog.save()
 
       res.json({
-        message: 'Yay, just updated your blog!',
-        blog: {
           _id: updateBlog._id,
           title: updateBlog.title,
           body: updateBlog.body,
-        },
       })
     } else {
       res.status(401).json({ message: 'Not blog owner' })
@@ -69,7 +66,7 @@ exports.createBlog = asyncHandler(async (req, res) => {
   const blog = await Blog.create({ title, body, author: req.user._id })
 
   if (blog) {
-    res.status(201).json({ message: 'You have a new blog!', blog })
+    res.status(201).json({ blog })
   } else {
     res.status(400).json({ message: 'Invalid data' })
     throw new Error('Invalid data')
