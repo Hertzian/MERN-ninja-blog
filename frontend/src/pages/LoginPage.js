@@ -7,7 +7,7 @@ const LoginPage = ({ history }) => {
   const authContext = useContext(AuthContext)
 
   const { setAlert } = alertContext
-  const { login, error, isAuthenticated, clearErrors } = authContext
+  const { login, error, isAuthenticated, clearErrors, message } = authContext
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -17,6 +17,10 @@ const LoginPage = ({ history }) => {
     if (error) {
       setAlert(error, 'danger')
       clearErrors()
+    }
+
+    if(message) {
+      setAlert(message, 'success')
     }
   }, [isAuthenticated, history, error, setAlert, clearErrors])
 
@@ -43,7 +47,6 @@ const LoginPage = ({ history }) => {
       setAlert('To short your pass...', 'danger')
     } else {
       login({ email, password })
-      !error && setAlert('You are logged in!', 'success')
     }
   }
 

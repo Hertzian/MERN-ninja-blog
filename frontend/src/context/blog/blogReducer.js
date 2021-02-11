@@ -16,22 +16,15 @@ const blogReducer = (state, action) => {
         ...state,
         loading: false,
         blogs: action.payload,
+        message: null,
       }
 
     case GET_ONE_BLOG:
-    case CREATE_BLOG:
       return {
         ...state,
         loading: false,
         blog: action.payload,
-      }
-
-    case UPDATE_BLOG:
-    case DELETE_BLOG:
-      return {
-        ...state,
-        loading: false,
-        blogs: state.blogs.filter((blog) => blog._id !== action.payload),
+        message: null
       }
 
     case UPDATE_MODE_BLOG:
@@ -40,6 +33,7 @@ const blogReducer = (state, action) => {
         loading: false,
         update: true,
         blog: action.payload,
+        message: null,
       }
 
     case NEW_MODE_BLOG:
@@ -48,6 +42,24 @@ const blogReducer = (state, action) => {
         loading: false,
         update: false,
         blog: null,
+        message: null,
+      }
+
+    case CREATE_BLOG:
+      return {
+        ...state,
+        loading: false,
+        blog: action.payload,
+        message: action.message,
+      }
+
+    case UPDATE_BLOG:
+    case DELETE_BLOG:
+      return {
+        ...state,
+        loading: false,
+        blogs: state.blogs.filter((blog) => blog._id !== action.payload),
+        message: action.message,
       }
 
     case ERROR_BLOG:

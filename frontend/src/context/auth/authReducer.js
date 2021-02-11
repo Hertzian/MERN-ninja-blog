@@ -28,6 +28,7 @@ const authReducer = (state, action) => {
         ...action.payload,
         isAuthenticated: true,
         loading: false,
+        message: action.payload.message,
       }
 
     case AUTH_ERROR:
@@ -42,7 +43,8 @@ const authReducer = (state, action) => {
         isAuthenticated: false,
         loading: false,
         user: null,
-        error: action.payload,
+        error: null,
+        message: action.payload.message,
       }
 
     case CLEAR_ERRORS:

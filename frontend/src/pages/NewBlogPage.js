@@ -9,7 +9,7 @@ const NewBlogPage = ({ history, match }) => {
   const alertContext = useContext(AlertContext)
 
   const { loadUser, user } = authContext
-  const { createBlog, update, error, blog, updateBlog, resetMode } = blogContext
+  const { createBlog, update, error, blog, updateBlog, resetMode, message } = blogContext
   const { setAlert } = alertContext
 
   const [formData, setFormData] = useState({
@@ -17,8 +17,6 @@ const NewBlogPage = ({ history, match }) => {
     body: '',
     author: '',
   })
-
-  console.log(blog)
 
   useEffect(() => {
     loadUser()
@@ -40,6 +38,11 @@ const NewBlogPage = ({ history, match }) => {
       history.push('/new-blog')
     }
 
+    if (message) {
+      setAlert(message, 'success')
+    }
+    // eslint-disable-next-line
+
     if (match.path === '/new-blog') {
       resetMode()
     }
@@ -48,7 +51,7 @@ const NewBlogPage = ({ history, match }) => {
       setAlert(error, 'danger')
     }
     // eslint-disable-next-line
-  }, [error, history, setAlert, blog, setFormData])
+  }, [error, history, setAlert, blog, setFormData, message])
 
   const onChange = (e) => {
     setFormData({
@@ -64,11 +67,9 @@ const NewBlogPage = ({ history, match }) => {
     if (update) {
       updateBlog(blog._id, formData)
       history.push('/')
-      setAlert('You updated your blog!', 'success')
     } else {
       createBlog(formData)
       history.push('/')
-      setAlert('You have a new blog!', 'success')
     }
   }
 

@@ -20,6 +20,7 @@ const BlogState = (props) => {
     error: null,
     update: false,
     loading: true,
+    message: null,
   }
 
   const [state, dispatch] = useReducer(blogReducer, initialState)
@@ -52,7 +53,11 @@ const BlogState = (props) => {
 
       const res = await axios.post('/api/blogs', blogData, config)
 
-      dispatch({ type: CREATE_BLOG, payload: res.data })
+      dispatch({
+        type: CREATE_BLOG,
+        payload: res.data.blog,
+        message: res.data.message,
+      })
     } catch (err) {
       dispatch({ type: ERROR_BLOG, payload: err.response.data.message })
     }
@@ -60,9 +65,13 @@ const BlogState = (props) => {
 
   const deleteBlog = async (blogId) => {
     try {
-      await axios.delete(`/api/blogs/${blogId}`)
+      const res = await axios.delete(`/api/blogs/${blogId}`)
 
-      dispatch({ type: DELETE_BLOG, payload: blogId })
+      dispatch({
+        type: DELETE_BLOG,
+        payload: blogId,
+        message: res.data.message,
+      })
     } catch (err) {
       dispatch({ type: ERROR_BLOG, payload: err.response.data.message })
     }
@@ -76,17 +85,22 @@ const BlogState = (props) => {
 
       const res = await axios.put(`/api/blogs/${blogId}`, blogData, config)
 
-      dispatch({ type: UPDATE_BLOG, payload: res.data })
+      dispatch({
+        type: UPDATE_BLOG,
+        // payload: res.data,
+        payload: blogId,
+        message: res.data.message,
+      })
     } catch (err) {
       dispatch({ type: ERROR_BLOG, payload: err.response.data.message })
     }
   }
 
-  const updateMode = (blogId) =>{
+  const updateMode = (blogId) => {
     dispatch({ type: UPDATE_MODE_BLOG, payload: getBlog(blogId) })
   }
-  
-  const resetMode = () => dispatch({type: NEW_MODE_BLOG})
+
+  const resetMode = () => dispatch({ type: NEW_MODE_BLOG })
 
   return (
     <BlogContext.Provider
@@ -96,6 +110,7 @@ const BlogState = (props) => {
         error: state.error,
         loading: state.loading,
         update: state.update,
+        message: state.message,
         getBlogs,
         getBlog,
         createBlog,
