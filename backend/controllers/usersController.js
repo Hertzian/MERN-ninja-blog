@@ -12,10 +12,11 @@ exports.login = asyncHandler(async (req, res) => {
 
   if (user && (await user.matchPassword(password))) {
     res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
+      // _id: user._id,
+      // name: user.name,
+      // email: user.email,
+      // role: user.role,
+      message: 'Welcome again bud!',
       token: genToken(user._id),
     })
   } else {
@@ -57,7 +58,6 @@ exports.register = asyncHandler(async (req, res) => {
 // @access  private
 exports.getUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id)
-  console.log(req.user._id)
 
   if (user) {
     res.json({
@@ -76,8 +76,6 @@ exports.getUserProfile = asyncHandler(async (req, res) => {
 // @access  private
 exports.updateUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id)
-
-  // console.log(req.body)
 
   if (user) {
     user.name = req.body.name || user.name
@@ -107,10 +105,7 @@ exports.updateUserProfile = asyncHandler(async (req, res) => {
 // @route   POST /api/users/register
 // @access  private/admin
 exports.getUsers = asyncHandler(async (req, res) => {
-  console.log(req.user)
-
   const users = await User.find()
-  // console.log(req.headers.authorization)
 
   if (!users) {
     res.status(400).json({message: 'No users are registered'})

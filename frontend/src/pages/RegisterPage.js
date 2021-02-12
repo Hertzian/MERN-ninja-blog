@@ -1,22 +1,24 @@
-import { set } from 'mongoose'
 import React, { useState, useContext, useEffect } from 'react'
 import AlertContext from '../context/alert/alertContext'
 import AuthContext from '../context/auth/authContext'
 
-const RegisterPage = () => {
+const RegisterPage = ({history}) => {
   const alertContext = useContext(AlertContext)
   const { setAlert } = alertContext
 
   const authContext = useContext(AuthContext)
-  const {register, error, clearErrors} = authContext
+  const {register, error, clearErrors, isAuthenticated} = authContext
 
   useEffect(()=> {
+    if(isAuthenticated){
+      history.push('/')
+    }
     // if(error === 'User already exists'){
     if(error){
       setAlert(error, 'danger')
       clearErrors()
     }
-  }, [error, setAlert])
+  }, [error, setAlert, clearErrors, history, isAuthenticated])
 
   const [user, setUser] = useState({
     name: '',
@@ -46,10 +48,6 @@ const RegisterPage = () => {
 
     }else {
       register({name, email, password})
-
-      // console.log(password.length)
-      // console.log(user)
-      // console.log('login success!')
     }
   }
 

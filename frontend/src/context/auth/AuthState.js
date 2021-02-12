@@ -1,25 +1,26 @@
 import { useReducer } from 'react'
 import axios from 'axios'
-import authContext from './authContext'
+import AuthContext from './authContext'
 import authReducer from './authReducer'
 import setAuthToken from '../../utils/setAuthToken'
 import {
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  REGISTER_REQUEST,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
-  CLEAR_ERRORS
+  USER_LOADED,
+  AUTH_ERROR,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGOUT,
+  CLEAR_ERRORS,
 } from '../types'
 
 const AuthState = ({ children }) => {
   const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: null,
-    user: null,
     loading: true,
     error: null,
+    message: null,
   }
 
   const [state, dispatch] = useReducer(authReducer, initialState)
@@ -30,14 +31,16 @@ const AuthState = ({ children }) => {
     }
 
     try {
-      const res = await axios.get()
-    } catch (error) {}
+      const res = await axios.get('/api/users/profile')
+
+      dispatch({ type: USER_LOADED, payload: res.data })
+    } catch (err) {
+      dispatch({ type: AUTH_ERROR, payload: err.response.data.message })
+    }
   }
 
   const login = async (formData) => {
     try {
-      dispatch({ type: LOGIN_REQUEST })
-
       const config = {
         headers: { 'Content-Type': 'application/json' },
       }
@@ -48,17 +51,12 @@ const AuthState = ({ children }) => {
 
       loadUser()
     } catch (err) {
-      dispatch({
-        type: LOGIN_FAIL,
-        payload: err.response.data.message,
-      })
+      dispatch({ type: LOGIN_FAIL, payload: err.response.data.message })
     }
   }
 
   const register = async (formData) => {
     try {
-      dispatch({ type: REGISTER_REQUEST })
-
       const config = {
         headers: { 'Content-Type': 'application/json' },
       }
@@ -66,26 +64,27 @@ const AuthState = ({ children }) => {
       const res = await axios.post(`/api/users/register`, formData, config)
 
       dispatch({ type: REGISTER_SUCCESS, payload: res.data })
+
+      loadUser()
     } catch (err) {
       dispatch({ type: REGISTER_FAIL, payload: err.response.data.message })
-      console.log(err.response.data.message)
     }
   }
 
-  const logout = () => {
-    console.log('logout')
-  }
+  const logout = () =>
+    dispatch({ type: LOGOUT, payload: 'You are logged out!' })
 
-  const clearErrors = () => dispatch({type: CLEAR_ERRORS})
+  const clearErrors = () => dispatch({ type: CLEAR_ERRORS })
 
   return (
-    <authContext.Provider
+    <AuthContext.Provider
       value={{
         token: state.token,
         isAuthenticated: state.isAuthenticated,
-        user: state.user,
         loading: state.loading,
+        user: state.user,
         error: state.error,
+        message: state.message,
         register,
         loadUser,
         login,
@@ -94,7 +93,7 @@ const AuthState = ({ children }) => {
       }}
     >
       {children}
-    </authContext.Provider>
+    </AuthContext.Provider>
   )
 }
 

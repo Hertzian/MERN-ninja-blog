@@ -7,8 +7,6 @@ const asyncHandler = require('../utils/asyncHandler')
 exports.getBlogs = asyncHandler(async (req, res) => {
   const blogs = await Blog.find().populate('author')
 
-  console.log(blogs)
-
   if (blogs) {
     res.json(blogs)
   } else {
@@ -23,8 +21,6 @@ exports.getBlogs = asyncHandler(async (req, res) => {
 exports.getBlogById = asyncHandler(async (req, res) => {
   const blog = await Blog.findById(req.params.blogId).populate('author')
 
-  // console.log(blog)
-
   if (blog) {
     res.json(blog)
   } else {
@@ -35,25 +31,21 @@ exports.getBlogById = asyncHandler(async (req, res) => {
 
 // @desc    update blog
 // @route   PUT /api/users/blogs/:blogId
-// @access  private
+// @access  private/admin
 exports.updateOwnerBlog = asyncHandler(async (req, res) => {
   const blog = await Blog.findById(req.params.blogId)
 
-  // console.log(blog)
-  // console.log('log 1:', String(req.user._id))
-  // console.log('log 2:', String(blog.author))
-
   if (blog) {
-    if (String(blog.author) === String(req.user._id)) {
+    if (String(blog.author) === String(req.user._id) || req.user.isAdmin) {
       blog.title = req.body.title || blog.title
       blog.body = req.body.body || blog.body
 
       const updateBlog = await blog.save()
 
       res.json({
-        _id: updateBlog._id,
-        title: updateBlog.title,
-        body: updateBlog.body,
+          _id: updateBlog._id,
+          title: updateBlog.title,
+          body: updateBlog.body,
       })
     } else {
       res.status(401).json({ message: 'Not blog owner' })
@@ -74,14 +66,12 @@ exports.createBlog = asyncHandler(async (req, res) => {
   const blog = await Blog.create({ title, body, author: req.user._id })
 
   if (blog) {
-    res.status(201).json(blog)
+    res.status(201).json({ blog })
   } else {
     res.status(400).json({ message: 'Invalid data' })
     throw new Error('Invalid data')
   }
 })
-
-// admin routes ********************************
 
 // @desc    delete blog
 // @route   DELETE /api/users/blogs/:blogId
@@ -89,11 +79,9 @@ exports.createBlog = asyncHandler(async (req, res) => {
 exports.deleteBlog = asyncHandler(async (req, res) => {
   const blog = await Blog.findById(req.params.blogId)
 
-  console.log(blog)
-
-  if (blog) {
+  if (String(blog.author) === String(req.user._id) || req.user.isAdmin) {
     await blog.remove()
-    res.json({ message: 'Blog removed' })
+    res.json({ message: 'Your blog is gone!', blog: {} })
   } else {
     res.status(404).json({ message: 'Blog not found' })
     throw new Error('Blog not found')
