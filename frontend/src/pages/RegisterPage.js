@@ -43,10 +43,7 @@ const RegisterPage = ({history}) => {
       setAlert('All fields pls ;)', 'danger')
     } else if (password !== confirmPassword) {
       setAlert('Passwords do not match', 'danger')
-    } else if(password.length < 8){
-      setAlert('To short your pass...', 'danger')
-
-    }else {
+    } else {
       register({name, email, password})
     }
   }

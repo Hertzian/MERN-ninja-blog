@@ -40,10 +40,10 @@ exports.register = asyncHandler(async (req, res) => {
 
   if (user) {
     res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
+      // _id: user._id,
+      // name: user.name,
+      // email: user.email,
+      // role: user.role,
       token: genToken(user._id),
     })
   } else {
