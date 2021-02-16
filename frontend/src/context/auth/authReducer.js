@@ -28,12 +28,8 @@ const authReducer = (state, action) => {
         ...action.payload,
         isAuthenticated: true,
         loading: false,
-        message: action.payload.message,
       }
 
-    case AUTH_ERROR:
-    case LOGIN_FAIL:
-    case REGISTER_FAIL:
     case LOGOUT:
       localStorage.removeItem('token')
 
@@ -43,9 +39,19 @@ const authReducer = (state, action) => {
         isAuthenticated: false,
         loading: false,
         user: null,
-        error: action.payload,
       }
 
+    case LOGIN_FAIL:
+    case REGISTER_FAIL:
+    case AUTH_ERROR:
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        loading: null,
+        user: null,
+        error: action.payload,
+      }
     case CLEAR_ERRORS:
       return {
         ...state,

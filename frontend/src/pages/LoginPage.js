@@ -7,7 +7,7 @@ const LoginPage = ({ history }) => {
   const authContext = useContext(AuthContext)
 
   const { setAlert } = alertContext
-  const { login, error, isAuthenticated, clearErrors, message } = authContext
+  const { login, error, isAuthenticated, clearErrors } = authContext
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -18,10 +18,6 @@ const LoginPage = ({ history }) => {
       setAlert(error, 'danger')
       clearErrors()
     }
-
-    // if(message) {
-    //   setAlert(message, 'success')
-    // }
   }, [isAuthenticated, history, error, setAlert, clearErrors])
 
   const [user, setUser] = useState({
@@ -38,15 +34,11 @@ const LoginPage = ({ history }) => {
     })
   }
 
-  console.log(error)
-
   const handleSubmit = (e) => {
     e.preventDefault()
 
     if (email === '' || password === '') {
       setAlert('All fields pls ;)', 'danger')
-    } else if (password.length < 8) {
-      setAlert('To short your pass...', 'danger')
     } else {
       login({ email, password })
     }

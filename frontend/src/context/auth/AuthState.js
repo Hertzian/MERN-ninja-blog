@@ -20,7 +20,6 @@ const AuthState = ({ children }) => {
     isAuthenticated: null,
     loading: true,
     error: null,
-    message: null,
   }
 
   const [state, dispatch] = useReducer(authReducer, initialState)
@@ -72,7 +71,7 @@ const AuthState = ({ children }) => {
   }
 
   const logout = () =>
-    dispatch({ type: LOGOUT, payload: 'You are logged out!' })
+    dispatch({ type: LOGOUT })
 
   const clearErrors = () => dispatch({ type: CLEAR_ERRORS })
 
@@ -84,7 +83,6 @@ const AuthState = ({ children }) => {
         loading: state.loading,
         user: state.user,
         error: state.error,
-        message: state.message,
         register,
         loadUser,
         login,

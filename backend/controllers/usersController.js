@@ -16,7 +16,6 @@ exports.login = asyncHandler(async (req, res) => {
       // name: user.name,
       // email: user.email,
       // role: user.role,
-      message: 'Welcome again bud!',
       token: genToken(user._id),
     })
   } else {
