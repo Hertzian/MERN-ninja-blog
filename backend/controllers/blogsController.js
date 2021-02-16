@@ -35,25 +35,25 @@ exports.getBlogById = asyncHandler(async (req, res) => {
 exports.updateOwnerBlog = asyncHandler(async (req, res) => {
   const blog = await Blog.findById(req.params.blogId)
 
-  if (blog) {
-    if (String(blog.author) === String(req.user._id) || req.user.isAdmin) {
-      blog.title = req.body.title || blog.title
-      blog.body = req.body.body || blog.body
+  if (!blog) {
+    res.status(401).json({ message: 'Blog not found!' })
+    throw new Error('Blog not found!')
+  }
 
-      const updateBlog = await blog.save()
+  if (String(blog.author) === String(req.user._id) || req.user.isAdmin) {
+    blog.title = req.body.title || blog.title
+    blog.body = req.body.body || blog.body
 
-      res.json({
-          _id: updateBlog._id,
-          title: updateBlog.title,
-          body: updateBlog.body,
-      })
-    } else {
-      res.status(401).json({ message: 'Not blog owner' })
-      throw new Error('Not blog owner')
-    }
+    const updateBlog = await blog.save()
+
+    res.json({
+      _id: updateBlog._id,
+      title: updateBlog.title,
+      body: updateBlog.body,
+    })
   } else {
-    res.status(404).json({ message: 'No blog found!' })
-    throw new Error('No blog found!')
+    res.status(404).json({ message: 'You are not the owner!' })
+    throw new Error('You are not the owner!')
   }
 })
 

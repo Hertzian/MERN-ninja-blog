@@ -10,25 +10,20 @@ const BlogPreview = ({ title, id, author }) => {
   const alertContext = useContext(AlertContext)
 
   const { user, token, loadUser } = authContext
-  const { deleteBlog, updateMode, message } = blogContext
+  const { deleteBlog, updateMode } = blogContext
   const { setAlert } = alertContext
 
   useEffect(() => {
-    if (message) {
-      setAlert(message, 'success')
-    }
-    // eslint-disable-next-line
-
     if (token) {
       loadUser()
     }
     // eslint-disable-next-line
-  }, [token, message])
+  }, [token, ])
 
   // console.log('message1: ', message)
   const deleteHandler = () => {
     deleteBlog(id)
-    setAlert(message, 'success')
+    setAlert('Your blog is gone...', 'success')
   }
 
   const updateHandler = () => {
