@@ -19,9 +19,9 @@ const LoginPage = ({ history }) => {
       clearErrors()
     }
 
-    if(message) {
-      setAlert(message, 'success')
-    }
+    // if(message) {
+    //   setAlert(message, 'success')
+    // }
   }, [isAuthenticated, history, error, setAlert, clearErrors])
 
   const [user, setUser] = useState({
@@ -37,6 +37,8 @@ const LoginPage = ({ history }) => {
       [e.target.name]: e.target.value,
     })
   }
+
+  console.log(error)
 
   const handleSubmit = (e) => {
     e.preventDefault()
