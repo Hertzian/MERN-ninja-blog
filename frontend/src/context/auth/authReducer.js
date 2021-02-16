@@ -17,6 +17,7 @@ const authReducer = (state, action) => {
         isAuthenticated: true,
         loading: false,
         user: action.payload,
+        isAdmin: action.isAdmin
       }
 
     case REGISTER_SUCCESS:
@@ -37,6 +38,7 @@ const authReducer = (state, action) => {
         ...state,
         token: null,
         isAuthenticated: false,
+        isAdmin: false,
         loading: false,
         user: null,
       }
@@ -48,6 +50,7 @@ const authReducer = (state, action) => {
         ...state,
         token: null,
         isAuthenticated: false,
+        isAdmin: false,
         loading: null,
         user: null,
         error: action.payload,

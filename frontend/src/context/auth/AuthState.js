@@ -18,6 +18,7 @@ const AuthState = ({ children }) => {
   const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: null,
+    isAdmin: null,
     loading: true,
     error: null,
   }
@@ -32,7 +33,7 @@ const AuthState = ({ children }) => {
     try {
       const res = await axios.get('/api/users/profile')
 
-      dispatch({ type: USER_LOADED, payload: res.data })
+      dispatch({ type: USER_LOADED, payload: res.data, isAdmin: res.data.role === 'admin' ? true : false })
     } catch (err) {
       dispatch({ type: AUTH_ERROR, payload: err.response.data.message })
     }
@@ -80,6 +81,7 @@ const AuthState = ({ children }) => {
       value={{
         token: state.token,
         isAuthenticated: state.isAuthenticated,
+        isAdmin: state.isAdmin,
         loading: state.loading,
         user: state.user,
         error: state.error,

@@ -7,7 +7,7 @@ const NavBar = () => {
   const authContext = useContext(AuthContext)
   const alertContext = useContext(AlertContext)
 
-  const { isAuthenticated, logout } = authContext
+  const { isAuthenticated, isAdmin, logout } = authContext
   const { setAlert } = alertContext
 
   const handleLogout = () => {
@@ -20,6 +20,11 @@ const NavBar = () => {
       <h1>The Ninja Blog!</h1>
       <div className='links'>
         <Link to='/'>Home</Link>
+        {isAdmin && isAuthenticated && (
+          <>
+            <button>AdminOnly</button>
+          </>
+        )}
         {!isAuthenticated && (
           <>
             <Link to='/login'>Login</Link>

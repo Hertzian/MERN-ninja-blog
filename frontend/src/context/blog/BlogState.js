@@ -58,7 +58,7 @@ const BlogState = (props) => {
 
   const deleteBlog = async (blogId) => {
     try {
-      const res = await axios.delete(`/api/blogs/${blogId}`)
+      await axios.delete(`/api/blogs/${blogId}`)
 
       dispatch({ type: DELETE_BLOG, payload: blogId })
     } catch (err) {
@@ -70,7 +70,7 @@ const BlogState = (props) => {
     try {
       const config = { headers: { 'Content-Type': 'application/json' } }
 
-      const res = await axios.put(`/api/blogs/${blogId}`, blogData, config)
+      await axios.put(`/api/blogs/${blogId}`, blogData, config)
 
       dispatch({
         type: UPDATE_BLOG,
