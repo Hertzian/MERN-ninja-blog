@@ -1,22 +1,25 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
+import UserList from '../components/UserList'
 import AuthContext from '../context/auth/authContext'
+import UsersContext from '../context/users/usersContext'
 
 const UsersPage = (props) => {
   const authContext = useContext(AuthContext)
-  const { isAdmin } = authContext
+  const usersContext = useContext(UsersContext)
 
-  console.log(props.location)
+  const { isAdmin } = authContext
+  const { getAllUsers, users } = usersContext
+
+  useEffect(() => {
+    getAllUsers()
+  }, [])
 
   if (!isAdmin) {
     return <Redirect to='/' />
   }
 
-  return (
-    <>
-      <h1>test</h1>
-    </>
-  )
+  return <UserList users={users} />
 }
 
 export default UsersPage
