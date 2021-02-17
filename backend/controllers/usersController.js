@@ -53,7 +53,7 @@ exports.getUserProfile = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      role: user.role
+      role: user.role,
     })
   } else {
     res.status(404).json({ message: 'User not found' })
@@ -103,6 +103,20 @@ exports.getUsers = asyncHandler(async (req, res) => {
   }
 
   res.json(users)
+})
+
+// @desc    get all users
+// @route   POST /api/users/:userId
+// @access  private/admin
+exports.getUserById = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.userId).select('-password')
+
+  if (!user) {
+    res.status(400).json({ message: 'User not found...' })
+    throw new Error('User not found')
+  }
+
+  res.json(user)
 })
 
 // @desc    update user

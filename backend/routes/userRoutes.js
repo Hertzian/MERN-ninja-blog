@@ -12,6 +12,7 @@ router.put('/profile', protect, usersController.updateUserProfile)
 
 // admin routes
 router.get('/', protect, isAdmin, usersController.getUsers)
+router.get('/:userId',protect, isAdmin, usersController.getUserById)
 router.put('/:userId',protect, isAdmin, usersController.updateUser)
 router.delete('/:userId',protect, isAdmin, usersController.deleteUsers)
 
