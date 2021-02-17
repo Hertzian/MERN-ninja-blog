@@ -166,6 +166,13 @@ button:hover {
   background-color: #ad1c48;
 }
 
+/* users section */
+.table {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
 .footer {
   padding: 1rem;
   display: flex;

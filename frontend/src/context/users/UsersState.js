@@ -9,31 +9,34 @@ const UsersState = (props) => {
     users: null,
     user: null,
     error: null,
-    loading: true
+    loading: true,
   }
 
   const [state, dispatch] = useReducer(usersReducer, initialState)
 
   const getAllUsers = async () => {
     try {
-      const res = await axios.get('')
+      const res = await axios.get('/api/users')
 
-      dispatch({type: GET_ALL_USERS, payload: res.data})
+      dispatch({ type: GET_ALL_USERS, payload: res.data })
     } catch (err) {
-      dispatch({ type: ERROR_USERS, payload: err.response.data.message})
+      dispatch({ type: ERROR_USERS, payload: err.response.data.message })
     }
   }
 
-  <UsersContext.Provider
-    value={{
-      users: state.users,
-      user: state.user,
-      error: state.error,
-      loading: state.loading,
-      getAllUsers
-    }} >
-    {props.children}
-  </UsersContext.Provider>
+  return (
+    <UsersContext.Provider
+      value={{
+        users: state.users,
+        user: state.user,
+        error: state.error,
+        loading: state.loading,
+        getAllUsers,
+      }}
+    >
+      {props.children}
+    </UsersContext.Provider>
+  )
 }
 
 export default UsersState

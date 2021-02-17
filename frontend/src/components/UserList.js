@@ -1,19 +1,33 @@
-import React from 'react'
+import { useContext, useEffect } from 'react'
 import UserItem from './UserItem'
+import UsersContext from '../context/users/usersContext'
 
-const UserList = ({ users }) => {
-  
+const UserList = () => {
+  const usersContext = useContext(UsersContext)
+  const { users, getAllUsers, loading } = usersContext
+
+  useEffect(() => {
+    getAllUsers()
+    // eslint-disable-next-line
+  }, [])
+
   return (
     <>
       <h3>UserList</h3>
-      {!users && users > 0 ? (
-        users.map((user) => (
-          <UserItem user={user} />
-        ))
-        
-      ) : (
-        <h3>No users found...</h3>
-      )}
+      {loading && <p>loading...</p>}
+      <table className='table'>
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>email</th>
+            <th>actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users &&
+            users.map((user, idx) => <UserItem key={idx} user={user} />)}
+        </tbody>
+      </table>
     </>
   )
 }

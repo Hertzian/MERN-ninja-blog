@@ -7,6 +7,7 @@ import BlogDetailPage from './pages/BlogDetailPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import UsersPage from './pages/UsersPage'
+import UserDetailsPage from './pages/UserDetailsPage'
 import Alerts from './components/Alerts'
 
 import AuthState from './context/auth/AuthState'
@@ -32,6 +33,11 @@ const App = () => {
                 <Route path='/' component={HomePage} exact />
                 <UsersState>
                   <Route path='/users' component={UsersPage} exact />
+                  <Route
+                    path='/user/:userId'
+                    component={UserDetailsPage}
+                    exact
+                  />
                 </UsersState>
                 <Route path='/login' component={LoginPage} exact />
                 <Route path='/register' component={RegisterPage} exact />
