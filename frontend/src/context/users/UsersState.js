@@ -2,12 +2,12 @@ import { useReducer } from 'react'
 import axios from 'axios'
 import UsersContext from './usersContext'
 import usersReducer from './usersReducer'
-import { GET_ALL_USERS, ERROR_USERS } from '../types'
+import { GET_ALL_USERS, ERROR_USERS, GET_USER } from '../types'
 
 const UsersState = (props) => {
   const initialState = {
     users: null,
-    user: null,
+    userSelected: null,
     error: null,
     loading: true,
   }
@@ -24,14 +24,27 @@ const UsersState = (props) => {
     }
   }
 
+  const getUserById = async (userId) => {
+    try {
+      const res = await axios.get(`/api/users/${userId}`)
+
+      console.log('state: ', res.data)
+
+      dispatch({ type: GET_USER, payload: res.data})
+    } catch (err) {
+      dispatch({ type: ERROR_USERS, payload: err.response.data.message})
+    }
+  }
+
   return (
     <UsersContext.Provider
       value={{
         users: state.users,
-        user: state.user,
+        userSelected: state.userSelected,
         error: state.error,
         loading: state.loading,
         getAllUsers,
+        getUserById,
       }}
     >
       {props.children}

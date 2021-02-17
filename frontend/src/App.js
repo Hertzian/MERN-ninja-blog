@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import NavBar from './components/NavBar'
 import Footer from './components/Footer'
 import HomePage from './pages/HomePage'
@@ -25,29 +25,34 @@ const App = () => {
     <AuthState>
       <BlogState>
         <AlertState>
-          <div className='App'>
-            <Router>
-              <NavBar />
-              <div className='content'>
-                <Alerts />
-                <Route path='/' component={HomePage} exact />
-                <UsersState>
-                  <Route path='/users' component={UsersPage} exact />
-                  <Route
-                    path='/user/:userId'
-                    component={UserDetailsPage}
-                    exact
-                  />
-                </UsersState>
-                <Route path='/login' component={LoginPage} exact />
-                <Route path='/register' component={RegisterPage} exact />
-                <Route path='/new-blog' component={NewBlogPage} />
-                <Route path='/blog/:blogId' component={BlogDetailPage} />
-                <Route path='/update-blog/:blogId' component={NewBlogPage} />
-              </div>
-              <Footer />
-            </Router>
-          </div>
+          <UsersState>
+            <div className='App'>
+              <Router>
+                <NavBar />
+                <div className='content'>
+                  <Alerts />
+                  <Switch>
+                    <Route path='/' component={HomePage} exact />
+                    <Route path='/users' component={UsersPage} exact />
+                    <Route
+                      path='/users/:userId'
+                      component={UserDetailsPage}
+                      exact
+                    />
+                    <Route path='/login' component={LoginPage} exact />
+                    <Route path='/register' component={RegisterPage} exact />
+                    <Route path='/new-blog' component={NewBlogPage} />
+                    <Route path='/blog/:blogId' component={BlogDetailPage} />
+                    <Route
+                      path='/update-blog/:blogId'
+                      component={NewBlogPage}
+                    />
+                  </Switch>
+                </div>
+                <Footer />
+              </Router>
+            </div>
+          </UsersState>
         </AlertState>
       </BlogState>
     </AuthState>

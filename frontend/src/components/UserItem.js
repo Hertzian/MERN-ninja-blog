@@ -5,10 +5,11 @@ const UserItem = ({ user }) => {
   return (
     <>
       <tr>
+        <td>{user.role}</td>
         <td>{user.name} </td>
         <td>{user.email} </td>
         <td>
-          <Link to={`/user/${user._id}`} user={user}>para alla</Link>
+          <Link to={`/users/${user._id}`} >view</Link>
         </td>
       </tr>
     </>

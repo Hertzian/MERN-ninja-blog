@@ -1,4 +1,4 @@
-import { GET_ALL_USERS, ERROR_USERS } from '../types'
+import { GET_ALL_USERS, ERROR_USERS, GET_USER } from '../types'
 
 const usersReducer = (state, action) => {
   switch (action.type) {
@@ -6,8 +6,15 @@ const usersReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        user: null,
+        userSelected: null,
         users: action.payload,
+      }
+    
+    case GET_USER:
+      return {
+        ...state,
+        loading: false,
+        userSelected: action.payload,
       }
 
     case ERROR_USERS:

@@ -19,6 +19,7 @@ const AuthState = ({ children }) => {
     token: localStorage.getItem('token'),
     isAuthenticated: null,
     isAdmin: null,
+    user: null,
     loading: true,
     error: null,
   }

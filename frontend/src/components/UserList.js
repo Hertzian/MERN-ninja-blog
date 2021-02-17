@@ -18,6 +18,7 @@ const UserList = () => {
       <table className='table'>
         <thead>
           <tr>
+            <th>role</th>
             <th>name</th>
             <th>email</th>
             <th>actions</th>
@@ -27,6 +28,14 @@ const UserList = () => {
           {users &&
             users.map((user, idx) => <UserItem key={idx} user={user} />)}
         </tbody>
+        <tfoot>
+          <tr>
+            <th>role</th>
+            <th>name</th>
+            <th>email</th>
+            <th>actions</th>
+          </tr>
+        </tfoot>
       </table>
     </>
   )

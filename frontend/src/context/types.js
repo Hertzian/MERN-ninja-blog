@@ -30,4 +30,5 @@ export const NEW_MODE_BLOG = 'NEW_MODE_BLOG'
 // admin users types
 // users
 export const GET_ALL_USERS = 'GET_ALL_USERS'
+export const GET_USER = 'GET_USER'
 export const ERROR_USERS = 'ERROR_USERS'
