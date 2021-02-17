@@ -26,3 +26,8 @@ export const DELETE_BLOG = 'DELETE_BLOG'
 export const ERROR_BLOG = 'ERROR_BLOG'
 export const UPDATE_MODE_BLOG = 'UPDATE_MODE_BLOG'
 export const NEW_MODE_BLOG = 'NEW_MODE_BLOG'
+
+// admin users types
+// users
+export const GET_ALL_USERS = 'GET_ALL_USERS'
+export const ERROR_USERS = 'ERROR_USERS'

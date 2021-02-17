@@ -12,6 +12,7 @@ import Alerts from './components/Alerts'
 import AuthState from './context/auth/AuthState'
 import BlogState from './context/blog/BlogState'
 import AlertState from './context/alert/AlertState'
+import UsersState from './context/users/UsersState'
 import setAuthToken from './utils/setAuthToken'
 
 if (localStorage.token) {
@@ -29,7 +30,9 @@ const App = () => {
               <div className='content'>
                 <Alerts />
                 <Route path='/' component={HomePage} exact />
-                <Route path='/users' component={UsersPage} exact />
+                <UsersState>
+                  <Route path='/users' component={UsersPage} exact />
+                </UsersState>
                 <Route path='/login' component={LoginPage} exact />
                 <Route path='/register' component={RegisterPage} exact />
                 <Route path='/new-blog' component={NewBlogPage} />
