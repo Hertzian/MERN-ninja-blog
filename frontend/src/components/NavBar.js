@@ -22,7 +22,7 @@ const NavBar = () => {
         <Link to='/'>Home</Link>
         {isAdmin && isAuthenticated && (
           <>
-            <button>AdminOnly</button>
+            <Link to='users'>Users</Link>
           </>
         )}
         {!isAuthenticated && (

@@ -6,6 +6,7 @@ import NewBlogPage from './pages/NewBlogPage'
 import BlogDetailPage from './pages/BlogDetailPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
+import UsersPage from './pages/UsersPage'
 import Alerts from './components/Alerts'
 
 import AuthState from './context/auth/AuthState'
@@ -17,7 +18,7 @@ if (localStorage.token) {
   setAuthToken(localStorage.token)
 }
 
-function App() {
+const App = () => {
   return (
     <AuthState>
       <BlogState>
@@ -28,6 +29,7 @@ function App() {
               <div className='content'>
                 <Alerts />
                 <Route path='/' component={HomePage} exact />
+                <Route path='/users' component={UsersPage} exact />
                 <Route path='/login' component={LoginPage} exact />
                 <Route path='/register' component={RegisterPage} exact />
                 <Route path='/new-blog' component={NewBlogPage} />
