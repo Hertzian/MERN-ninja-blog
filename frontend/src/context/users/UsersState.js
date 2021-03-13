@@ -9,7 +9,7 @@ const UsersState = (props) => {
     users: null,
     userSelected: null,
     error: null,
-    loading: true,
+    loading: true
   }
 
   const [state, dispatch] = useReducer(usersReducer, initialState)
@@ -30,9 +30,9 @@ const UsersState = (props) => {
 
       console.log('state: ', res.data)
 
-      dispatch({ type: GET_USER, payload: res.data})
+      dispatch({ type: GET_USER, payload: res.data })
     } catch (err) {
-      dispatch({ type: ERROR_USERS, payload: err.response.data.message})
+      dispatch({ type: ERROR_USERS, payload: err.response.data.message })
     }
   }
 
@@ -44,7 +44,7 @@ const UsersState = (props) => {
         error: state.error,
         loading: state.loading,
         getAllUsers,
-        getUserById,
+        getUserById
       }}
     >
       {props.children}

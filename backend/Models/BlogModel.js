@@ -4,19 +4,19 @@ const BlogSchema = mongoose.Schema(
   {
     title: {
       type: String,
-      required: true,
+      required: true
     },
     body: {
       type: String,
-      required: true,
+      required: true
     },
     author: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-    },
+      ref: 'User'
+    }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
 )
 

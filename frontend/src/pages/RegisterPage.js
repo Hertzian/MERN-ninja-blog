@@ -2,19 +2,19 @@ import React, { useState, useContext, useEffect } from 'react'
 import AlertContext from '../context/alert/alertContext'
 import AuthContext from '../context/auth/authContext'
 
-const RegisterPage = ({history}) => {
+const RegisterPage = ({ history }) => {
   const alertContext = useContext(AlertContext)
   const { setAlert } = alertContext
 
   const authContext = useContext(AuthContext)
-  const {register, error, clearErrors, isAuthenticated} = authContext
+  const { register, error, clearErrors, isAuthenticated } = authContext
 
-  useEffect(()=> {
-    if(isAuthenticated){
+  useEffect(() => {
+    if (isAuthenticated) {
       history.push('/')
     }
     // if(error === 'User already exists'){
-    if(error){
+    if (error) {
       setAlert(error, 'danger')
       clearErrors()
     }
@@ -24,7 +24,7 @@ const RegisterPage = ({history}) => {
     name: '',
     email: '',
     password: '',
-    confirmPassword: '',
+    confirmPassword: ''
   })
 
   const { name, email, password, confirmPassword } = user
@@ -32,7 +32,7 @@ const RegisterPage = ({history}) => {
   const onChange = (e) => {
     setUser({
       ...user,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     })
   }
 
@@ -44,7 +44,7 @@ const RegisterPage = ({history}) => {
     } else if (password !== confirmPassword) {
       setAlert('Passwords do not match', 'danger')
     } else {
-      register({name, email, password})
+      register({ name, email, password })
     }
   }
 

@@ -14,14 +14,14 @@ const AlertState = ({ children }) => {
 
     dispatch({
       type: SET_ALERT,
-      payload: { message, type, id },
+      payload: { message, type, id }
     })
 
     setTimeout(
       () =>
         dispatch({
           type: REMOVE_ALERT,
-          payload: id,
+          payload: id
         }),
       timeout
     )

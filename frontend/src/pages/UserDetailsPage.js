@@ -7,7 +7,7 @@ const UserDetailsPage = ({ match }) => {
   const usersContext = useContext(UsersContext)
   const { getUserById, userSelected, loading } = usersContext
 
-  let history = useHistory()
+  const history = useHistory()
 
   useEffect(() => {
     getUserById(match.params.userId)

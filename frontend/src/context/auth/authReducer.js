@@ -6,7 +6,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_ERRORS,
+  CLEAR_ERRORS
 } from '../types'
 
 const authReducer = (state, action) => {
@@ -28,7 +28,7 @@ const authReducer = (state, action) => {
         ...state,
         ...action.payload,
         isAuthenticated: true,
-        loading: false,
+        loading: false
       }
 
     case LOGOUT:
@@ -40,7 +40,7 @@ const authReducer = (state, action) => {
         isAuthenticated: false,
         isAdmin: false,
         loading: false,
-        user: null,
+        user: null
       }
 
     case LOGIN_FAIL:
@@ -53,12 +53,12 @@ const authReducer = (state, action) => {
         isAdmin: false,
         loading: null,
         user: null,
-        error: action.payload,
+        error: action.payload
       }
     case CLEAR_ERRORS:
       return {
         ...state,
-        error: null,
+        error: null
       }
     default:
       return state

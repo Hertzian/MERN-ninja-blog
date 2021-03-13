@@ -11,7 +11,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_ERRORS,
+  CLEAR_ERRORS
 } from '../types'
 
 const AuthState = ({ children }) => {
@@ -21,7 +21,7 @@ const AuthState = ({ children }) => {
     isAdmin: null,
     user: null,
     loading: true,
-    error: null,
+    error: null
   }
 
   const [state, dispatch] = useReducer(authReducer, initialState)
@@ -34,7 +34,11 @@ const AuthState = ({ children }) => {
     try {
       const res = await axios.get('/api/users/profile')
 
-      dispatch({ type: USER_LOADED, payload: res.data, isAdmin: res.data.role === 'admin' ? true : false })
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data,
+        isAdmin: res.data.role === 'admin'
+      })
     } catch (err) {
       dispatch({ type: AUTH_ERROR, payload: err.response.data.message })
     }
@@ -43,10 +47,10 @@ const AuthState = ({ children }) => {
   const login = async (formData) => {
     try {
       const config = {
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' }
       }
 
-      const res = await axios.post(`/api/users/login`, formData, config)
+      const res = await axios.post('/api/users/login', formData, config)
 
       dispatch({ type: LOGIN_SUCCESS, payload: res.data })
 
@@ -59,10 +63,10 @@ const AuthState = ({ children }) => {
   const register = async (formData) => {
     try {
       const config = {
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' }
       }
 
-      const res = await axios.post(`/api/users/register`, formData, config)
+      const res = await axios.post('/api/users/register', formData, config)
 
       dispatch({ type: REGISTER_SUCCESS, payload: res.data })
 
@@ -72,8 +76,7 @@ const AuthState = ({ children }) => {
     }
   }
 
-  const logout = () =>
-    dispatch({ type: LOGOUT })
+  const logout = () => dispatch({ type: LOGOUT })
 
   const clearErrors = () => dispatch({ type: CLEAR_ERRORS })
 
@@ -90,7 +93,7 @@ const AuthState = ({ children }) => {
         loadUser,
         login,
         logout,
-        clearErrors,
+        clearErrors
       }}
     >
       {children}

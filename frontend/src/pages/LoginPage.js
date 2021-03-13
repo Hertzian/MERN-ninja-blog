@@ -22,7 +22,7 @@ const LoginPage = ({ history }) => {
 
   const [user, setUser] = useState({
     email: '',
-    password: '',
+    password: ''
   })
 
   const { email, password } = user
@@ -30,7 +30,7 @@ const LoginPage = ({ history }) => {
   const onChange = (e) => {
     setUser({
       ...user,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     })
   }
 

@@ -34,7 +34,7 @@ exports.register = asyncHandler(async (req, res) => {
 
   if (user) {
     res.status(201).json({
-      token: genToken(user._id),
+      token: genToken(user._id)
     })
   } else {
     res.status(400).json({ message: 'Invalid user data' })
@@ -53,7 +53,7 @@ exports.getUserProfile = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      role: user.role,
+      role: user.role
     })
   } else {
     res.status(404).json({ message: 'User not found' })
@@ -81,7 +81,7 @@ exports.updateUserProfile = asyncHandler(async (req, res) => {
       _id: updateUser._id,
       name: updateUser.name,
       email: updateUser.email,
-      token: genToken(updateUser._id),
+      token: genToken(updateUser._id)
     })
   } else {
     res.status(404).json({ message: 'User not found' })
@@ -136,7 +136,7 @@ exports.updateUser = asyncHandler(async (req, res) => {
       _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,
-      role: updatedUser.role,
+      role: updatedUser.role
     })
   } else {
     res.status(404).json({ message: 'User not found' })

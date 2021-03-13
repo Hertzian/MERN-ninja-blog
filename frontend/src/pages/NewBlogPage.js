@@ -15,7 +15,7 @@ const NewBlogPage = ({ history, match }) => {
   const [formData, setFormData] = useState({
     title: '',
     body: '',
-    author: '',
+    author: ''
   })
 
   useEffect(() => {
@@ -26,14 +26,14 @@ const NewBlogPage = ({ history, match }) => {
         ...formData,
         title: blog.title,
         body: blog.body,
-        author: user.name,
+        author: user.name
       })
     } else {
       resetMode()
       setFormData({
         title: '',
         body: '',
-        author: '',
+        author: ''
       })
       history.push('/new-blog')
     }
@@ -51,7 +51,7 @@ const NewBlogPage = ({ history, match }) => {
   const onChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
       // author: user.name,
     })
   }

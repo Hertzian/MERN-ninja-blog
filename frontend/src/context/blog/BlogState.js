@@ -10,7 +10,7 @@ import {
   DELETE_BLOG,
   UPDATE_MODE_BLOG,
   NEW_MODE_BLOG,
-  UPDATE_BLOG,
+  UPDATE_BLOG
 } from '../types'
 
 const BlogState = (props) => {
@@ -19,7 +19,7 @@ const BlogState = (props) => {
     blog: null,
     error: null,
     update: false,
-    loading: true,
+    loading: true
   }
 
   const [state, dispatch] = useReducer(blogReducer, initialState)
@@ -75,7 +75,7 @@ const BlogState = (props) => {
       dispatch({
         type: UPDATE_BLOG,
         // payload: res.data,
-        payload: blogId,
+        payload: blogId
       })
     } catch (err) {
       dispatch({ type: ERROR_BLOG, payload: err.response.data.message })
@@ -102,7 +102,7 @@ const BlogState = (props) => {
         deleteBlog,
         updateBlog,
         updateMode,
-        resetMode,
+        resetMode
       }}
     >
       {props.children}

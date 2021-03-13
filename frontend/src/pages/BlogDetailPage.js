@@ -20,7 +20,7 @@ const BlogDetailPage = ({ match }) => {
           <h2>{blog.title}</h2>
           <div>By {blog.author.name}</div>
           <div>{blog.body}</div>
-          <Link to={'/'}>Go back</Link>
+          <Link to='/'>Go back</Link>
         </div>
       ) : (
         <h4>This is an error...</h4>

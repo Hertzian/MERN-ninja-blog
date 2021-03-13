@@ -17,7 +17,7 @@ export const AUTH_ERROR = 'AUTH_ERROR'
 export const CLEAR_ERRORS = 'CLEAR_ERRORS'
 
 // blog
-// export const REQUEST_BLOGS = 'REQUEST_BLOGS' 
+// export const REQUEST_BLOGS = 'REQUEST_BLOGS'
 export const GET_ALL_BLOGS = 'GET_ALL_BLOGS'
 export const GET_ONE_BLOG = 'GET_ONE_BLOG'
 export const CREATE_BLOG = 'CREATE_BLOG'

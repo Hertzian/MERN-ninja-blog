@@ -87,3 +87,16 @@ exports.deleteBlog = asyncHandler(async (req, res) => {
     throw new Error('Blog not found')
   }
 })
+
+// @desc    get blogs by user Id
+// @route   GET /api/users/:userId/blogs
+// @access  private/admin
+exports.getBlogsByUserId = asyncHandler(async (req, res) => {
+  const blogs = await Blog.find({ author: req.params.userId })
+
+  if (!blogs) {
+    res.status(404).json({ message: 'This user doesnt have any blogs...' })
+  } else {
+    res.json(blogs)   
+  }
+})

@@ -7,20 +7,20 @@ const usersReducer = (state, action) => {
         ...state,
         loading: false,
         userSelected: null,
-        users: action.payload,
+        users: action.payload
       }
-    
+
     case GET_USER:
       return {
         ...state,
         loading: false,
-        userSelected: action.payload,
+        userSelected: action.payload
       }
 
     case ERROR_USERS:
       return {
         ...state,
-        error: action.payload,
+        error: action.payload
       }
 
     default:
