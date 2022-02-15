@@ -93,7 +93,6 @@ const RegisterPage = ({ history }) => {
           onChange={onChange}
           // required
           // minLength='8'
-
         />
         <button type='submit'>Register</button>
       </form>

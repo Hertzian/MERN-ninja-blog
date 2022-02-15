@@ -20,7 +20,6 @@ exports.getBlogs = asyncHandler(async (req, res) => {
 // @access  public
 exports.getBlogById = asyncHandler(async (req, res) => {
   const blog = await Blog.findById(req.params.blogId).populate('author')
-
   if (blog) {
     res.json(blog)
   } else {
@@ -49,7 +48,7 @@ exports.updateOwnerBlog = asyncHandler(async (req, res) => {
     res.json({
       _id: updateBlog._id,
       title: updateBlog.title,
-      body: updateBlog.body,
+      body: updateBlog.body
     })
   } else {
     res.status(404).json({ message: 'You are not the owner!' })
@@ -97,6 +96,6 @@ exports.getBlogsByUserId = asyncHandler(async (req, res) => {
   if (!blogs) {
     res.status(404).json({ message: 'This user doesnt have any blogs...' })
   } else {
-    res.json(blogs)   
+    res.json(blogs)
   }
 })

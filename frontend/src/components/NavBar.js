@@ -1,10 +1,12 @@
 import { useContext } from 'react'
 import { Link } from 'react-router-dom'
+
 import AuthContext from '../context/auth/authContext'
 import AlertContext from '../context/alert/alertContext'
 
 const NavBar = () => {
   const authContext = useContext(AuthContext)
+
   const alertContext = useContext(AlertContext)
 
   const { isAuthenticated, isAdmin, logout } = authContext

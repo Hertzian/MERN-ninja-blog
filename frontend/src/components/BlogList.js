@@ -16,11 +16,13 @@ const BlogList = () => {
           </tr>
         </thead>
         <tbody>
-          {blogs && blogs > 0 ? (
-            blogs.map((blog, idx) => <BlogItem blog key={idx} />)
-          ) : (
-            <p>this users doesnt have any blogs... </p>
-          )}
+          {
+            //blogs && blogs > 0 ? (
+            //blogs.map((blog, idx) => <BlogItem blog key={idx} />)
+            //) : (
+            //<p>this users doesnt have any blogs... </p>
+            //)
+          }
         </tbody>
         <tfoot>
           <tr>
