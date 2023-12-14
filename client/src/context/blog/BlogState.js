@@ -1,6 +1,5 @@
-import { useReducer } from 'react'
+import { useReducer, createContext } from 'react'
 import axios from 'axios'
-import BlogContext from './blogContext'
 import blogReducer from './blogReducer'
 import {
   ERROR_BLOG,
@@ -12,6 +11,10 @@ import {
   NEW_MODE_BLOG,
   UPDATE_BLOG
 } from '../types'
+
+const apiUrl = process.env.REACT_APP_API_URL
+
+export const BlogContext = createContext()
 
 const BlogState = (props) => {
   const initialState = {
@@ -26,8 +29,7 @@ const BlogState = (props) => {
 
   const getBlogs = async () => {
     try {
-      const res = await axios.get('/api/blogs')
-
+      const res = await axios.get(`${apiUrl}/blogs`)
       dispatch({ type: GET_ALL_BLOGS, payload: res.data })
     } catch (err) {
       dispatch({ type: ERROR_BLOG, payload: err.response.data.message })
@@ -36,8 +38,7 @@ const BlogState = (props) => {
 
   const getBlog = async (blogId) => {
     try {
-      const res = await axios.get(`/api/blogs/${blogId}`)
-
+      const res = await axios.get(`${apiUrl}/blogs/${blogId}`)
       dispatch({ type: GET_ONE_BLOG, payload: res.data })
     } catch (err) {
       dispatch({ type: ERROR_BLOG, payload: err.response.data.message })
@@ -47,9 +48,7 @@ const BlogState = (props) => {
   const createBlog = async (blogData) => {
     try {
       const config = { headers: { 'Content-Type': 'application/json' } }
-
-      const res = await axios.post('/api/blogs', blogData, config)
-
+      const res = await axios.post(`${apiUrl}/api/blogs`, blogData, config)
       dispatch({ type: CREATE_BLOG, payload: res.data.blog })
     } catch (err) {
       dispatch({ type: ERROR_BLOG, payload: err.response.data.message })
@@ -58,8 +57,7 @@ const BlogState = (props) => {
 
   const deleteBlog = async (blogId) => {
     try {
-      await axios.delete(`/api/blogs/${blogId}`)
-
+      await axios.delete(`${apiUrl}/blogs/${blogId}`)
       dispatch({ type: DELETE_BLOG, payload: blogId })
     } catch (err) {
       dispatch({ type: ERROR_BLOG, payload: err.response.data.message })
@@ -69,9 +67,7 @@ const BlogState = (props) => {
   const updateBlog = async (blogId, blogData) => {
     try {
       const config = { headers: { 'Content-Type': 'application/json' } }
-
-      await axios.put(`/api/blogs/${blogId}`, blogData, config)
-
+      await axios.put(`${apiUrl}/blogs/${blogId}`, blogData, config)
       dispatch({
         type: UPDATE_BLOG,
         // payload: res.data,

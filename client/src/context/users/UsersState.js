@@ -1,8 +1,11 @@
-import { useReducer } from 'react'
+import { useReducer, createContext } from 'react'
 import axios from 'axios'
-import UsersContext from './usersContext'
 import usersReducer from './usersReducer'
 import { GET_ALL_USERS, ERROR_USERS, GET_USER } from '../types'
+
+const apiUrl = process.env.REACT_APP_API_URL
+
+export const UsersContext = createContext()
 
 const UsersState = (props) => {
   const initialState = {
@@ -16,8 +19,7 @@ const UsersState = (props) => {
 
   const getAllUsers = async () => {
     try {
-      const res = await axios.get('/api/users')
-
+      const res = await axios.get(`${apiUrl}/users`)
       dispatch({ type: GET_ALL_USERS, payload: res.data })
     } catch (err) {
       dispatch({ type: ERROR_USERS, payload: err.response.data.message })
@@ -26,10 +28,7 @@ const UsersState = (props) => {
 
   const getUserById = async (userId) => {
     try {
-      const res = await axios.get(`/api/users/${userId}`)
-
-      console.log('state: ', res.data)
-
+      const res = await axios.get(`${apiUrl}/users/${userId}`)
       dispatch({ type: GET_USER, payload: res.data })
     } catch (err) {
       dispatch({ type: ERROR_USERS, payload: err.response.data.message })

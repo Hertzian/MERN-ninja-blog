@@ -1,6 +1,5 @@
-import { useReducer } from 'react'
+import { useReducer, createContext } from 'react'
 import axios from 'axios'
-import AuthContext from './authContext'
 import authReducer from './authReducer'
 import setAuthToken from '../../utils/setAuthToken'
 import {
@@ -13,6 +12,10 @@ import {
   LOGOUT,
   CLEAR_ERRORS
 } from '../types'
+
+const apiUrl = process.env.REACT_APP_API_URL
+
+export const AuthContext = createContext()
 
 const AuthState = ({ children }) => {
   const initialState = {
@@ -32,8 +35,7 @@ const AuthState = ({ children }) => {
     }
 
     try {
-      const res = await axios.get('/api/users/profile')
-
+      const res = await axios.get(`${apiUrl}/users/profile`)
       dispatch({
         type: USER_LOADED,
         payload: res.data,
@@ -49,11 +51,8 @@ const AuthState = ({ children }) => {
       const config = {
         headers: { 'Content-Type': 'application/json' }
       }
-
-      const res = await axios.post('/api/users/login', formData, config)
-
+      const res = await axios.post(`${apiUrl}/users/login`, formData, config)
       dispatch({ type: LOGIN_SUCCESS, payload: res.data })
-
       loadUser()
     } catch (err) {
       dispatch({ type: LOGIN_FAIL, payload: err.response.data.message })
@@ -65,11 +64,8 @@ const AuthState = ({ children }) => {
       const config = {
         headers: { 'Content-Type': 'application/json' }
       }
-
-      const res = await axios.post('/api/users/register', formData, config)
-
+      const res = await axios.post(`${apiUrl}/users/register`, formData, config)
       dispatch({ type: REGISTER_SUCCESS, payload: res.data })
-
       loadUser()
     } catch (err) {
       dispatch({ type: REGISTER_FAIL, payload: err.response.data.message })
