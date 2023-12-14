@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react'
 import BlogPreview from '../components/BlogPreview'
-import BlogContext from '../context/blog/blogContext'
-import AuthContext from '../context/auth/authContext'
+import { BlogContext } from '../context/blog/BlogState'
+import { AuthContext } from '../context/auth/AuthState'
 
 const HomePage = () => {
   const authContext = useContext(AuthContext)

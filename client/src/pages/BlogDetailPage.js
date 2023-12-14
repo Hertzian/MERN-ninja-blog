@@ -1,6 +1,6 @@
 import { useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
-import BlogContext from '../context/blog/blogContext'
+import { BlogContext } from '../context/blog/BlogState'
 
 const BlogDetailPage = ({ match }) => {
   const blogContext = useContext(BlogContext)

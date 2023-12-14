@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react'
-import AlertContext from '../context/alert/alertContext'
-import AuthContext from '../context/auth/authContext'
+import { AlertContext } from '../context/alert/AlertState'
+import { AuthContext } from '../context/auth/AuthState'
 
 const LoginPage = ({ history }) => {
   const alertContext = useContext(AlertContext)

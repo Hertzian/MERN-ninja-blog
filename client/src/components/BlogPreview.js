@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import AuthContext from '../context/auth/authContext'
-import BlogContext from '../context/blog/blogContext'
-import AlertContext from '../context/alert/alertContext'
+import { AuthContext } from '../context/auth/AuthState'
+import { BlogContext } from '../context/blog/BlogState'
+import { AlertContext } from '../context/alert/AlertState'
 
 const BlogPreview = ({ title, id, author }) => {
   const authContext = useContext(AuthContext)
@@ -18,7 +18,7 @@ const BlogPreview = ({ title, id, author }) => {
       loadUser()
     }
     // eslint-disable-next-line
-  }, [token, ])
+  }, [token,])
 
   // console.log('message1: ', message)
   const deleteHandler = () => {

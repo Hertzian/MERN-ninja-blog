@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { Redirect } from 'react-router-dom'
 import UserList from '../components/UserList'
-import AuthContext from '../context/auth/authContext'
+import { AuthContext } from '../context/auth/AuthState'
 
 const UsersPage = () => {
   const authContext = useContext(AuthContext)

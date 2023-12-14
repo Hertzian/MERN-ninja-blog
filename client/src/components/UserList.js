@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react'
 import UserItem from './UserItem'
-import UsersContext from '../context/users/usersContext'
+import { UsersContext } from '../context/users/UsersState'
 
 const UserList = () => {
   const usersContext = useContext(UsersContext)

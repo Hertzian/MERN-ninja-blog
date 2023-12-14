@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
-import BlogContext from '../context/blog/blogContext'
-import AuthContext from '../context/auth/authContext'
-import AlertContext from '../context/alert/alertContext'
+import { BlogContext } from '../context/blog/BlogState'
+import { AuthContext } from '../context/auth/AuthState'
+import { AlertContext } from '../context/alert/AlertState'
 
 const NewBlogPage = ({ history, match }) => {
   const authContext = useContext(AuthContext)

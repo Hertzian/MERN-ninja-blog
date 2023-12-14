@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
-import AlertContext from '../context/alert/alertContext'
-import AuthContext from '../context/auth/authContext'
+import { AlertContext } from '../context/alert/AlertState'
+import { AuthContext } from '../context/auth/AuthState'
 
 const RegisterPage = ({ history }) => {
   const alertContext = useContext(AlertContext)
@@ -60,7 +60,7 @@ const RegisterPage = ({ history }) => {
           type='text'
           value={name}
           onChange={onChange}
-          // required
+        // required
         />
         <label htmlFor='email' className='create label'>
           Email:
@@ -70,7 +70,7 @@ const RegisterPage = ({ history }) => {
           type='email'
           value={email}
           onChange={onChange}
-          // required
+        // required
         />
         <label htmlFor='password' className='create label'>
           Password:
@@ -80,8 +80,8 @@ const RegisterPage = ({ history }) => {
           type='password'
           value={password}
           onChange={onChange}
-          // required
-          // minLength='8'
+        // required
+        // minLength='8'
         />
         <label htmlFor='confirm-password' className='create label'>
           Confirm password:
@@ -91,8 +91,8 @@ const RegisterPage = ({ history }) => {
           type='password'
           value={confirmPassword}
           onChange={onChange}
-          // required
-          // minLength='8'
+        // required
+        // minLength='8'
         />
         <button type='submit'>Register</button>
       </form>
