@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node backend/server.js",
-    "server": "nodemon backend/server.js",
-    "client": "npm start --prefix frontend",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "destroy": "node backend/seeder.js -d",
-    "insert": "node backend/seeder.js -i"
+    "destroy": "node seeder.js -d",
+    "insert": "node seeder.js -i"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +21,7 @@
     "mongoose": "^5.11.8"
   },
   "devDependencies": {
-    "concurrently": "^5.3.0"
+    "concurrently": "^5.3.0",
+    "nodemon": "^3.0.2"
   }
 }
