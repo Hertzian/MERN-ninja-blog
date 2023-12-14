@@ -1,6 +1,7 @@
 const path = require('path')
 const dotenv = require('dotenv')
 const express = require('express')
+const cors = require('cors')
 dotenv.config()
 const connectDb = require('./config/connectDB')
 
@@ -11,6 +12,7 @@ const userRoutes = require('./routes/userRoutes')
 const blogRoutes = require('./routes/blogRoutes')
 
 const app = express()
+app.use(cors())
 app.use(express.json())
 
 if (process.env.NODE_ENV === 'production') {
