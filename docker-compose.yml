@@ -1,0 +1,37 @@
+version: '3'
+services:
+  server:
+    container_name: server
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./server
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+    ports:
+      - "5001:5001"
+    depends_on:
+      - mongo
+
+  client:
+    container_name: client
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    environment:
+      - WDS_SOCKET_PORT=0
+    depends_on:
+      - server
+    ports:
+      - "3000:3000"
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo/data:/data/db

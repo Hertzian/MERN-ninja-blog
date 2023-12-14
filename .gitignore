@@ -1,2 +1,4 @@
 node_modules
 .env
+/mongo/data/*
+!/mongo/data/.gitkeep
