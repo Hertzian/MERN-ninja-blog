@@ -3,9 +3,22 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 
+import AuthState from './context/auth/AuthState'
+import BlogState from './context/blog/BlogState'
+import AlertState from './context/alert/AlertState'
+import UsersState from './context/users/UsersState'
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <AuthState>
+      <BlogState>
+        <AlertState>
+          <UsersState>
+            <App />
+          </UsersState>
+        </AlertState>
+      </BlogState>
+    </AuthState>
   </React.StrictMode>,
   document.getElementById('root')
 )
