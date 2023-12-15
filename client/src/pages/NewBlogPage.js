@@ -9,7 +9,7 @@ const NewBlogPage = ({ history, match }) => {
   const alertContext = useContext(AlertContext)
 
   const { loadUser, user } = authContext
-  const { createBlog, update, error, blog, updateBlog, resetMode } = blogContext
+  const { createBlog, blog, updateBlog, getBlog, resetMode } = blogContext
   const { setAlert } = alertContext
 
   const [formData, setFormData] = useState({
@@ -18,48 +18,51 @@ const NewBlogPage = ({ history, match }) => {
     author: ''
   })
 
+  let blogId = null
+  if (match.params.blogId) {
+    blogId = match.params.blogId
+  }
+
   useEffect(() => {
     loadUser()
-
-    if (update) {
-      setFormData({
-        ...formData,
-        title: blog.title,
-        body: blog.body,
-        author: user.name
-      })
-    } else {
-      resetMode()
-      setFormData({
-        title: '',
-        body: '',
-        author: ''
-      })
-      history.push('/new-blog')
-    }
-
     if (match.path === '/new-blog') {
       resetMode()
+      setFormData((prevState) => {
+        return {
+          ...prevState,
+          author: user.name
+        }
+      })
     }
 
-    if (error) {
-      setAlert(error, 'danger')
+    if (blogId) {
+      getBlog(blogId)
+    }
+
+    return () => resetMode()
+
+    // eslint-disable-next-line
+  }, [blogId])
+
+  useEffect(() => {
+    if (blog) {
+      setFormData((prevState) => {
+        return {
+          title: blog.title,
+          body: blog.body,
+          author: user.name
+        }
+      })
     }
     // eslint-disable-next-line
-  }, [error, history, setAlert, blog, setFormData])
+  }, [blog])
 
-  const onChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-      // author: user.name,
-    })
-  }
+  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value })
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    if (update) {
+    if (blogId) {
       updateBlog(blog._id, formData)
       history.push('/')
       setAlert('You just updated your blog', 'success')
@@ -72,7 +75,7 @@ const NewBlogPage = ({ history, match }) => {
 
   return (
     <div className='home'>
-      <h2>{update ? 'Update Blog' : 'New Blog'}</h2>
+      <h2>{blogId ? 'Update Blog' : 'New Blog'}</h2>
       <form className='create' onSubmit={handleSubmit}>
         <label htmlFor='title' className='create label'>
           Title:
@@ -87,7 +90,7 @@ const NewBlogPage = ({ history, match }) => {
           Body:
         </label>
         <textarea name='body' onChange={onChange} value={formData.body || ''} />
-        <button>Submit</button>
+        <button>{blogId ? 'Update' : 'Submit'}</button>
       </form>
     </div>
   )

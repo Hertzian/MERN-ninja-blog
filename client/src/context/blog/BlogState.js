@@ -7,8 +7,7 @@ import {
   GET_ONE_BLOG,
   CREATE_BLOG,
   DELETE_BLOG,
-  UPDATE_MODE_BLOG,
-  NEW_MODE_BLOG,
+  RESET,
   UPDATE_BLOG
 } from '../types'
 
@@ -21,7 +20,6 @@ const BlogState = (props) => {
     blogs: null,
     blog: null,
     error: null,
-    update: false,
     loading: true
   }
 
@@ -32,6 +30,7 @@ const BlogState = (props) => {
       const res = await axios.get(`${apiUrl}/blogs`)
       dispatch({ type: GET_ALL_BLOGS, payload: res.data })
     } catch (err) {
+      console.log('----*', err)
       dispatch({ type: ERROR_BLOG, payload: err.response.data.message })
     }
   }
@@ -48,7 +47,7 @@ const BlogState = (props) => {
   const createBlog = async (blogData) => {
     try {
       const config = { headers: { 'Content-Type': 'application/json' } }
-      const res = await axios.post(`${apiUrl}/api/blogs`, blogData, config)
+      const res = await axios.post(`${apiUrl}/blogs`, blogData, config)
       dispatch({ type: CREATE_BLOG, payload: res.data.blog })
     } catch (err) {
       dispatch({ type: ERROR_BLOG, payload: err.response.data.message })
@@ -67,22 +66,17 @@ const BlogState = (props) => {
   const updateBlog = async (blogId, blogData) => {
     try {
       const config = { headers: { 'Content-Type': 'application/json' } }
-      await axios.put(`${apiUrl}/blogs/${blogId}`, blogData, config)
+      const res = await axios.put(`${apiUrl}/blogs/${blogId}`, blogData, config)
       dispatch({
         type: UPDATE_BLOG,
-        // payload: res.data,
-        payload: blogId
+        payload: res.data,
       })
     } catch (err) {
       dispatch({ type: ERROR_BLOG, payload: err.response.data.message })
     }
   }
 
-  const updateMode = (blogId) => {
-    dispatch({ type: UPDATE_MODE_BLOG, payload: getBlog(blogId) })
-  }
-
-  const resetMode = () => dispatch({ type: NEW_MODE_BLOG })
+  const resetMode = () => dispatch({ type: RESET })
 
   return (
     <BlogContext.Provider
@@ -97,7 +91,7 @@ const BlogState = (props) => {
         createBlog,
         deleteBlog,
         updateBlog,
-        updateMode,
+        // updateMode,
         resetMode
       }}
     >

@@ -4,8 +4,7 @@ import {
   CREATE_BLOG,
   DELETE_BLOG,
   ERROR_BLOG,
-  UPDATE_MODE_BLOG,
-  NEW_MODE_BLOG,
+  RESET,
   UPDATE_BLOG
 } from '../types'
 
@@ -25,19 +24,18 @@ const blogReducer = (state, action) => {
         blog: action.payload
       }
 
-    case UPDATE_MODE_BLOG:
+    case UPDATE_BLOG:
       return {
         ...state,
         loading: false,
-        update: true,
-        blog: action.payload
+        blog: action.payload,
+        blogs: state.blogs.map((blog) => blog._id === action.payload._id ? action.payload : blog)
       }
 
-    case NEW_MODE_BLOG:
+    case RESET:
       return {
         ...state,
         loading: false,
-        update: false,
         blog: null
       }
 
@@ -45,10 +43,10 @@ const blogReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        blog: action.payload
+        blog: action.payload,
+        blogs: [...state.blogs, action.payload]
       }
 
-    case UPDATE_BLOG:
     case DELETE_BLOG:
       return {
         ...state,

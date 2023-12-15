@@ -17,15 +17,13 @@ export const AUTH_ERROR = 'AUTH_ERROR'
 export const CLEAR_ERRORS = 'CLEAR_ERRORS'
 
 // blog
-// export const REQUEST_BLOGS = 'REQUEST_BLOGS'
 export const GET_ALL_BLOGS = 'GET_ALL_BLOGS'
 export const GET_ONE_BLOG = 'GET_ONE_BLOG'
 export const CREATE_BLOG = 'CREATE_BLOG'
 export const UPDATE_BLOG = 'UPDATE_BLOG'
 export const DELETE_BLOG = 'DELETE_BLOG'
 export const ERROR_BLOG = 'ERROR_BLOG'
-export const UPDATE_MODE_BLOG = 'UPDATE_MODE_BLOG'
-export const NEW_MODE_BLOG = 'NEW_MODE_BLOG'
+export const RESET = 'RESET'
 
 // admin users types
 // users
