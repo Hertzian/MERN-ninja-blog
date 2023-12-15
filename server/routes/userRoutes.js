@@ -1,22 +1,22 @@
 const express = require('express')
-const usersController = require('../controllers/usersController')
-const blogsController = require('../controllers/blogsController')
+const { register, login, getUserProfile, updateUserProfile, getUsers, getUserById, updateUser, deleteUsers } = require('../controllers/usersController')
+const { getBlogsByUserId } = require('../controllers/blogsController')
 const router = express.Router()
 const { protect, isAdmin } = require('../utils/protectRoutes')
 
 // general routes
-router.post('/register', usersController.register)
-router.post('/login', usersController.login)
+router.post('/register', register)
+router.post('/login', login)
 
-router.get('/profile', protect, usersController.getUserProfile)
-router.put('/profile', protect, usersController.updateUserProfile)
+router.get('/profile', protect, getUserProfile)
+router.put('/profile', protect, updateUserProfile)
 
 // admin routes
-router.get('/', protect, isAdmin, usersController.getUsers)
-router.get('/:userId', protect, isAdmin, usersController.getUserById)
-router.put('/:userId', protect, isAdmin, usersController.updateUser)
-router.delete('/:userId', protect, isAdmin, usersController.deleteUsers)
+router.get('/', protect, isAdmin, getUsers)
+router.get('/:userId', protect, isAdmin, getUserById)
+router.put('/:userId', protect, isAdmin, updateUser)
+router.delete('/:userId', protect, isAdmin, deleteUsers)
 
-router.get('/:userId/blogs', blogsController.getBlogsByUserId)
+router.get('/:userId/blogs', getBlogsByUserId)
 
 module.exports = router

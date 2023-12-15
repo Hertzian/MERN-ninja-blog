@@ -1,12 +1,12 @@
 const express = require('express')
-const blogsController = require('../controllers/blogsController')
+const { getBlogs, createBlog, getBlogById, updateOwnerBlog, deleteBlog } = require('../controllers/blogsController')
 const router = express.Router()
 const { protect } = require('../utils/protectRoutes')
 
-router.get('/', blogsController.getBlogs)
-router.post('/', protect, blogsController.createBlog)
-router.get('/:blogId', blogsController.getBlogById)
-router.put('/:blogId', protect, blogsController.updateOwnerBlog)
-router.delete('/:blogId', protect, blogsController.deleteBlog)
+router.get('/', getBlogs)
+router.post('/', protect, createBlog)
+router.get('/:blogId', getBlogById)
+router.put('/:blogId', protect, updateOwnerBlog)
+router.delete('/:blogId', protect, deleteBlog)
 
 module.exports = router
