@@ -1,6 +1,6 @@
 import { useEffect, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-import BlogList from '../components/BlogList'
+import BlogList from '../components/BlogList-1'
 import { UsersContext } from '../context/users/UsersState'
 
 const UserDetailsPage = ({ match }) => {

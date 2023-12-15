@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react'
-import BlogPreview from '../components/BlogPreview'
+import BlogList from '../components/BlogList'
 import { BlogContext } from '../context/blog/BlogState'
 import { AuthContext } from '../context/auth/AuthState'
 
@@ -22,6 +22,13 @@ const HomePage = () => {
     return <h4>no blogs...</h4>
   }
 
+  let renderBlogs
+  if (blogs && !loading) {
+    renderBlogs = <BlogList blogs={blogs} />
+  } else {
+    renderBlogs = <h4>No blogs yet...</h4>
+  }
+
   return (
     <div className='home'>
       <h2>Welcome!</h2>
@@ -34,15 +41,8 @@ const HomePage = () => {
         register, login, create new blog, access to user profile and access for
         admin to manage users, blogs!.
       </p>
-
       {loading && <h3>loading...</h3>}
-      {blogs && !loading ? (
-        blogs.map((blog, index) => (
-          <BlogPreview title={blog.title} id={blog._id} key={index} author={blog.author} />
-        ))
-      ) : (
-        <h4>No blogs yet...</h4>
-      )}
+      {renderBlogs}
     </div>
   )
 }
