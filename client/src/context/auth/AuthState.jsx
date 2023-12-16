@@ -1,4 +1,4 @@
-import { useReducer, createContext } from 'react'
+import { useReducer, createContext, useCallback } from 'react'
 import axios from 'axios'
 import authReducer from './authReducer'
 import setAuthToken from '../../utils/setAuthToken'
@@ -13,7 +13,7 @@ import {
   CLEAR_ERRORS
 } from '../types'
 
-const apiUrl = process.env.REACT_APP_API_URL
+const apiUrl = import.meta.env.VITE_API_URL
 
 export const AuthContext = createContext()
 
@@ -29,7 +29,7 @@ const AuthState = ({ children }) => {
 
   const [state, dispatch] = useReducer(authReducer, initialState)
 
-  const loadUser = async () => {
+  const loadUser = useCallback(async () => {
     if (localStorage.token) {
       setAuthToken(localStorage.token)
     }
@@ -44,7 +44,7 @@ const AuthState = ({ children }) => {
     } catch (err) {
       dispatch({ type: AUTH_ERROR, payload: err.response.data.message })
     }
-  }
+  }, [])
 
   const login = async (formData) => {
     try {

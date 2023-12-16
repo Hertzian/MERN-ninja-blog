@@ -10,7 +10,7 @@ const AlertState = ({ children }) => {
 
   const [state, dispatch] = useReducer(alertReducer, initialState)
 
-  const setAlert = (message, type, timeout = 5000) => {
+  const setAlert = (message, type, timeout = 3000) => {
     const id = v4()
 
     dispatch({

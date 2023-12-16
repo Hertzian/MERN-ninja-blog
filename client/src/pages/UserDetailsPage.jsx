@@ -1,5 +1,5 @@
 import { useEffect, useContext } from 'react'
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 import BlogList from '../components/BlogList-1'
 import { UsersContext } from '../context/users/UsersState'
 
@@ -7,7 +7,7 @@ const UserDetailsPage = ({ match }) => {
   const usersContext = useContext(UsersContext)
   const { getUserById, userSelected, loading } = usersContext
 
-  const history = useHistory()
+  // const history = useHistory()
 
   useEffect(() => {
     getUserById(match.params.userId)
@@ -23,7 +23,7 @@ const UserDetailsPage = ({ match }) => {
 
   return (
     <>
-      <button onClick={() => history.push('/users')}>Go back</button>
+      {/* <button onClick={() => history.push('/users')}>Go back</button> */}
       {loading && <p>loading</p>}
       <p>userId: {match.params.userId}</p>
       {userSelected && (

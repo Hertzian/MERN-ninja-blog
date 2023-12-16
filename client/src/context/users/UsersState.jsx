@@ -3,7 +3,7 @@ import axios from 'axios'
 import usersReducer from './usersReducer'
 import { GET_ALL_USERS, ERROR_USERS, GET_USER } from '../types'
 
-const apiUrl = process.env.REACT_APP_API_URL
+const apiUrl = import.meta.env.VITE_API_URL
 
 export const UsersContext = createContext()
 

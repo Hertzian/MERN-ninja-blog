@@ -1,8 +1,9 @@
 import { useState, useContext, useEffect } from 'react'
+import { Navigate } from 'react-router-dom'
 import { AlertContext } from '../context/alert/AlertState'
 import { AuthContext } from '../context/auth/AuthState'
 
-const LoginPage = ({ history }) => {
+function LoginPage() {
   const alertContext = useContext(AlertContext)
   const authContext = useContext(AuthContext)
 
@@ -11,7 +12,7 @@ const LoginPage = ({ history }) => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      history.push('/')
+      return <Navigate to='/' />
     }
 
     if (error) {
@@ -27,12 +28,8 @@ const LoginPage = ({ history }) => {
 
   const { email, password } = user
 
-  const onChange = (e) => {
-    setUser({
-      ...user,
-      [e.target.name]: e.target.value
-    })
-  }
+  const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value })
+
 
   const handleSubmit = (e) => {
     e.preventDefault()

@@ -1,4 +1,4 @@
-import { useReducer, createContext } from 'react'
+import { useReducer, createContext, useCallback } from 'react'
 import axios from 'axios'
 import blogReducer from './blogReducer'
 import {
@@ -8,10 +8,11 @@ import {
   CREATE_BLOG,
   DELETE_BLOG,
   RESET,
-  UPDATE_BLOG
+  UPDATE_BLOG,
+  CLEAR_BLOGS
 } from '../types'
 
-const apiUrl = process.env.REACT_APP_API_URL
+const apiUrl = import.meta.env.VITE_API_URL
 
 export const BlogContext = createContext()
 
@@ -25,15 +26,14 @@ const BlogState = (props) => {
 
   const [state, dispatch] = useReducer(blogReducer, initialState)
 
-  const getBlogs = async () => {
+  const getBlogs = useCallback(async () => {
     try {
       const res = await axios.get(`${apiUrl}/blogs`)
       dispatch({ type: GET_ALL_BLOGS, payload: res.data })
     } catch (err) {
-      console.log('----*', err)
       dispatch({ type: ERROR_BLOG, payload: err.response.data.message })
     }
-  }
+  }, [])
 
   const getBlog = async (blogId) => {
     try {
@@ -67,6 +67,7 @@ const BlogState = (props) => {
     try {
       const config = { headers: { 'Content-Type': 'application/json' } }
       const res = await axios.put(`${apiUrl}/blogs/${blogId}`, blogData, config)
+      console.log('blogState: ', res.data)
       dispatch({
         type: UPDATE_BLOG,
         payload: res.data,
@@ -76,7 +77,12 @@ const BlogState = (props) => {
     }
   }
 
-  const resetMode = () => dispatch({ type: RESET })
+  const resetMode = () => {
+    dispatch({ type: RESET })
+    dispatch({ type: CLEAR_BLOGS })
+  }
+
+  const clearBlogs = () => dispatch({ type: CLEAR_BLOGS })
 
   return (
     <BlogContext.Provider
@@ -85,14 +91,13 @@ const BlogState = (props) => {
         blog: state.blog,
         error: state.error,
         loading: state.loading,
-        update: state.update,
         getBlogs,
         getBlog,
         createBlog,
         deleteBlog,
         updateBlog,
-        // updateMode,
-        resetMode
+        resetMode,
+        clearBlogs
       }}
     >
       {props.children}

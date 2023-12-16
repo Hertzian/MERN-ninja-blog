@@ -5,6 +5,7 @@ import {
   DELETE_BLOG,
   ERROR_BLOG,
   RESET,
+  CLEAR_BLOGS,
   UPDATE_BLOG
 } from '../types'
 
@@ -25,11 +26,15 @@ const blogReducer = (state, action) => {
       }
 
     case UPDATE_BLOG:
+      console.log(state.blogs && state.blogs)
       return {
         ...state,
         loading: false,
         blog: action.payload,
-        blogs: state.blogs.map((blog) => blog._id === action.payload._id ? action.payload : blog)
+        blogs: state.blogs.map((blog) => {
+          console.log('blogReducer: ', blog)
+          return blog._id === action.payload._id ? action.payload : blog
+        })
       }
 
     case RESET:
@@ -37,6 +42,12 @@ const blogReducer = (state, action) => {
         ...state,
         loading: false,
         blog: null
+      }
+
+    case CLEAR_BLOGS:
+      return {
+        ...state,
+        blogs: null
       }
 
     case CREATE_BLOG:

@@ -24,6 +24,7 @@ export const UPDATE_BLOG = 'UPDATE_BLOG'
 export const DELETE_BLOG = 'DELETE_BLOG'
 export const ERROR_BLOG = 'ERROR_BLOG'
 export const RESET = 'RESET'
+export const CLEAR_BLOGS = 'CLEAR_BLOGS'
 
 // admin users types
 // users
