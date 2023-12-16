@@ -26,15 +26,11 @@ const blogReducer = (state, action) => {
       }
 
     case UPDATE_BLOG:
-      console.log(state.blogs && state.blogs)
       return {
         ...state,
         loading: false,
         blog: action.payload,
-        blogs: state.blogs.map((blog) => {
-          console.log('blogReducer: ', blog)
-          return blog._id === action.payload._id ? action.payload : blog
-        })
+        blogs: state.blogs && state.blogs.map((blog) => blog._id === action.payload._id ? { ...blog, ...action.payload } : blog)
       }
 
     case RESET:
@@ -51,11 +47,16 @@ const blogReducer = (state, action) => {
       }
 
     case CREATE_BLOG:
+      let blogs
+      if (state.blogs) {
+        blogs = [...state.blogs, action.payload]
+      }
+
       return {
         ...state,
         loading: false,
         blog: action.payload,
-        blogs: [...state.blogs, action.payload]
+        blogs
       }
 
     case DELETE_BLOG:

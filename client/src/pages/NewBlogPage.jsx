@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import { BlogContext } from '../context/blog/BlogState'
 import { AuthContext } from '../context/auth/AuthState'
 import { AlertContext } from '../context/alert/AlertState'
@@ -7,55 +8,39 @@ const NewBlogPage = ({ history, match }) => {
   const authContext = useContext(AuthContext)
   const blogContext = useContext(BlogContext)
   const alertContext = useContext(AlertContext)
+  const { blogId } = useParams()
+  const navigate = useNavigate()
 
   const { loadUser, user } = authContext
-  const { createBlog, blog, updateBlog, getBlog, resetMode } = blogContext
+  const { createBlog,
+    blogs,
+    updateBlog, getBlog, resetMode } = blogContext
   const { setAlert } = alertContext
-
-  const [formData, setFormData] = useState({
+  const initialState = {
     title: '',
     body: '',
     author: ''
-  })
-
-  let blogId = null
-  if (match.params.blogId) {
-    blogId = match.params.blogId
   }
+  const blog = blogs && blogs.find((blog) => blogId === blog._id)
 
-  useEffect(() => {
-    loadUser()
-    if (match.path === '/new-blog') {
-      resetMode()
-      setFormData((prevState) => {
-        return {
-          ...prevState,
-          author: user.name
-        }
-      })
-    }
+  const [formData, setFormData] = useState(initialState)
 
-    if (blogId) {
-      getBlog(blogId)
-    }
-
-    return () => resetMode()
-
-    // eslint-disable-next-line
-  }, [blogId])
+  console.log(blog)
 
   useEffect(() => {
     if (blog) {
-      setFormData((prevState) => {
-        return {
-          title: blog.title,
-          body: blog.body,
-          author: user.name
-        }
+      setFormData({
+        title: blog.title,
+        body: blog.body,
+        author: user && user.name
       })
     }
-    // eslint-disable-next-line
-  }, [blog])
+
+    if (!blogId) {
+      resetMode()
+      setFormData(initialState)
+    }
+  }, [blogId])
 
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value })
 
@@ -64,12 +49,12 @@ const NewBlogPage = ({ history, match }) => {
 
     if (blogId) {
       updateBlog(blog._id, formData)
-      history.push('/')
       setAlert('You just updated your blog', 'success')
+      navigate('/')
     } else {
       createBlog(formData)
-      history.push('/')
       setAlert('You created a new blog!', 'success')
+      navigate('/')
     }
   }
 
@@ -84,12 +69,12 @@ const NewBlogPage = ({ history, match }) => {
           name='title'
           type='text'
           onChange={onChange}
-          value={formData.title || ''}
+          value={formData.title}
         />
         <label htmlFor='body' className='create label'>
           Body:
         </label>
-        <textarea name='body' onChange={onChange} value={formData.body || ''} />
+        <textarea name='body' onChange={onChange} value={formData.body} />
         <button>{blogId ? 'Update' : 'Submit'}</button>
       </form>
     </div>

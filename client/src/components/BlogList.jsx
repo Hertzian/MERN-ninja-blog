@@ -27,7 +27,7 @@ const BlogList = ({ blogs }) => {
 
   let renderBlogItems
   if (blogs) {
-    renderBlogItems = blogs.map(
+    renderBlogItems = blogs && blogs.map(
       (blog) => <BlogItem blog={blog} onDelete={deleteHandler} key={blog._id} />
     )
   }

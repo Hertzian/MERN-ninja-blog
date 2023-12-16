@@ -36,18 +36,18 @@ export const router = createBrowserRouter([
       //   path: '/register',
       //   element: <RegisterPage />
       // },
-      // {
-      //   path: '/new-blog',
-      //   element: <NewBlogPage />
-      // },
-      // {
-      //   path: '/blog/:blogId',
-      //   element: <BlogDetailPage />
-      // },
-      // {
-      //   path: '/update-blog/:blogId',
-      //   element: <NewBlogPage />
-      // }
+      {
+        path: '/new-blog',
+        element: <NewBlogPage />
+      },
+      {
+        path: '/blog/:blogId',
+        element: <BlogDetailPage />
+      },
+      {
+        path: '/update-blog/:blogId',
+        element: <NewBlogPage />
+      }
 
     ]
   },
