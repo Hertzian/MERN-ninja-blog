@@ -15,19 +15,23 @@ const BlogItem = ({ blog, onDelete }) => {
     setAlert('Your blog is gone...', 'success')
   }
 
-  let renderItem
+  let renderItem, renderButtons
+  if ((user && user.name) === (author && author.name)) {
+    renderButtons = (
+      <>
+        <Link to={`/update-blog/${_id}`}>Update</Link>
+        <button onClick={deleteHandler}>Delete</button>
+      </>
+    )
+  }
+
   if (blog && author) {
     renderItem = (
       <div className='blog-preview'>
         <h2>{title}</h2>
         <p>by {author.name}</p>
         <Link to={`/blog/${_id}`}>View more</Link>
-        {user && user.name === author.name && (
-          <>
-            <Link to={`/update-blog/${_id}`}>Update</Link>
-            <button onClick={deleteHandler}>Delete</button>
-          </>
-        )}
+        {renderButtons}
       </div>
     )
   }

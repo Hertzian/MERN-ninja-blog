@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Footer = () => {
+function Footer() {
   const date = new Date().getFullYear()
   return (
     <div className='footer'>

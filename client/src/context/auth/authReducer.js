@@ -17,7 +17,7 @@ const authReducer = (state, action) => {
         isAuthenticated: true,
         loading: false,
         user: action.payload,
-        isAdmin: action.isAdmin
+        isAdmin: action.payload.role === 'admin'
       }
 
     case REGISTER_SUCCESS:

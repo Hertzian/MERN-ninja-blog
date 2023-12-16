@@ -36,11 +36,7 @@ const AuthState = ({ children }) => {
 
     try {
       const res = await axios.get(`${apiUrl}/users/profile`)
-      dispatch({
-        type: USER_LOADED,
-        payload: res.data,
-        isAdmin: res.data.role === 'admin'
-      })
+      dispatch({ type: USER_LOADED, payload: res.data })
     } catch (err) {
       dispatch({ type: AUTH_ERROR, payload: err.response.data.message })
     }

@@ -7,8 +7,7 @@ import { AlertContext } from '../context/alert/AlertState'
 function NavBar() {
   const authContext = useContext(AuthContext)
   const { setAlert } = useContext(AlertContext)
-
-  const { isAuthenticated, isAdmin, logout } = authContext
+  const { token, isAuthenticated, isAdmin, logout } = authContext
 
   const handleLogout = () => {
     logout()
@@ -19,7 +18,8 @@ function NavBar() {
   if (isAdmin && isAuthenticated) {
     adminLinks = <Link to='/users'>Users</Link>
   }
-  if (!isAuthenticated) {
+
+  if (!isAuthenticated || !token) {
     userAuthLinks = (
       <>
         <Link to='/login'>Login</Link>
