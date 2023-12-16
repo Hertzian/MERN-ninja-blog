@@ -1,25 +1,26 @@
 import { useState, useContext, useEffect } from 'react'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { AlertContext } from '../context/alert/AlertState'
 import { AuthContext } from '../context/auth/AuthState'
 
 function LoginPage() {
   const alertContext = useContext(AlertContext)
   const authContext = useContext(AuthContext)
+  const navigate = useNavigate()
 
   const { setAlert } = alertContext
-  const { login, error, isAuthenticated, clearErrors } = authContext
+  const { login, error, isAuthenticated, clearErrors, token } = authContext
 
   useEffect(() => {
-    if (isAuthenticated) {
-      return <Navigate to='/' />
+    if (isAuthenticated || token) {
+      return navigate('/')
     }
 
     if (error) {
       setAlert(error, 'danger')
       clearErrors()
     }
-  }, [isAuthenticated, history, error, setAlert, clearErrors])
+  }, [history, error, setAlert, clearErrors, token])
 
   const [user, setUser] = useState({
     email: '',
@@ -30,7 +31,6 @@ function LoginPage() {
 
   const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value })
 
-
   const handleSubmit = (e) => {
     e.preventDefault()
 
@@ -38,6 +38,7 @@ function LoginPage() {
       setAlert('All fields pls ;)', 'danger')
     } else {
       login({ email, password })
+      return navigate('/')
     }
   }
 

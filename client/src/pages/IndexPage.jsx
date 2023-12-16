@@ -4,52 +4,54 @@ import { BlogContext } from '../context/blog/BlogState'
 import { AuthContext } from '../context/auth/AuthState'
 
 function IndexPage() {
-  // const authContext = useContext(AuthContext)
-  // const blogContext = useContext(BlogContext)
+  const authContext = useContext(AuthContext)
+  const blogContext = useContext(BlogContext)
 
-  // const { loadUser, token } = authContext
-  // const { blogs, getBlogs, loading, clearBlogs } = blogContext
+  const { loadUser, user, token, isAuthenticated } = authContext
+  const { blogs, getBlogs, loading, clearBlogs } = blogContext
 
-  // const [loaded, setLoaded] = useState(false)
+  const [latestBlogs, setLatestBlogs] = useState([])
 
-  // useEffect(() => {
-  //   if (token) {
-  //     loadUser()
-  //   }
+  console.log('isAdmin?: ', user && user.role)
 
-  //   if (!loaded) {
-  //     getBlogs()
-  //     setLoaded(true)
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [token, loadUser, getBlogs, loaded])
+  useEffect(() => {
+    getBlogs()
+  }, [getBlogs])
 
-  // if (blogs !== null && blogs.length === 0 && !loading && blogs === undefined) {
-  //   return <h4>no blogs...</h4>
-  // }
+  useEffect(() => {
+    setLatestBlogs(blogs)
+  }, [blogs])
 
-  // let renderBlogs
-  // if (blogs && !loading) {
-  //   renderBlogs = <BlogList blogs={blogs} />
-  // } else {
-  //   renderBlogs = <h4>No blogs yet...</h4>
-  // }
+  if (latestBlogs !== null && !loading && latestBlogs === undefined) {
+    return <h4>no blogs...</h4>
+  }
+
+  let renderBlogs
+  if (latestBlogs && !loading) {
+    renderBlogs = <BlogList blogs={latestBlogs} />
+  } else {
+    renderBlogs = <h4>No blogs yet...</h4>
+  }
 
   return (
     <div className='home'>
       <h2>Welcome!</h2>
       <p>ola ke ase</p>
       <p>
-        This is a simple page using the MERN stack, utilize in the backend,
-        node, express, jwt, mongoDB, bcrypt, mongoose. To handle frontend uses
-        react with hooks mainly useState, useEffect, useReducer, useContext. Of
-        course it uses concurrently and proxy to join frontend and backend. Can
-        look a bit simple, but have plenty of functionalities, for example:
-        register, login, create new blog, access to user profile and access for
-        admin to manage users, blogs!.
+        This is a simple blog page using the MERN stack, for the backend it uses,
+        node, express, jwt, mongoDB, bcrypt, mongoose. For the frontend part, uses
+        react with hooks, mainly useState, useEffect, useReducer, useContext.
+        It uses concurrently previously and proxy to join frontend and backend,
+        but I add Docker and docker-compose for the containerization, one container
+        for each element, Frontend, Backend and Database.
+
+        The page can look a bit simple at first glance, but have interesting
+        functionalities, for example:
+        register, login, create new blog, access to user profile, access for
+        admin to manage users, and blogs!.
       </p>
-      {/* {loading && <h3>loading...</h3>} */}
-      {/* {renderBlogs} */}
+      {loading && <h3>loading...</h3>}
+      {renderBlogs}
     </div>
   )
 }
