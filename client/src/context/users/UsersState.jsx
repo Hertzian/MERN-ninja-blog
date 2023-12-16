@@ -7,7 +7,7 @@ const apiUrl = import.meta.env.VITE_API_URL
 
 export const UsersContext = createContext()
 
-const UsersState = (props) => {
+function UsersState({ children }) {
   const initialState = {
     users: null,
     userSelected: null,
@@ -46,7 +46,7 @@ const UsersState = (props) => {
         getUserById
       }}
     >
-      {props.children}
+      {children}
     </UsersContext.Provider>
   )
 }

@@ -12,9 +12,7 @@ const NewBlogPage = ({ history, match }) => {
   const navigate = useNavigate()
 
   const { loadUser, user } = authContext
-  const { createBlog,
-    blogs,
-    updateBlog, getBlog, resetMode } = blogContext
+  const { createBlog, blogs, updateBlog, getBlog, resetMode } = blogContext
   const { setAlert } = alertContext
   const initialState = {
     title: '',
@@ -24,8 +22,6 @@ const NewBlogPage = ({ history, match }) => {
   const blog = blogs && blogs.find((blog) => blogId === blog._id)
 
   const [formData, setFormData] = useState(initialState)
-
-  console.log(blog)
 
   useEffect(() => {
     if (blog) {

@@ -5,7 +5,7 @@ import { SET_ALERT, REMOVE_ALERT } from '../types'
 
 export const AlertContext = createContext()
 
-const AlertState = ({ children }) => {
+function AlertState({ children }) {
   const initialState = []
 
   const [state, dispatch] = useReducer(alertReducer, initialState)

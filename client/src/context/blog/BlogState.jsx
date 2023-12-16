@@ -16,7 +16,7 @@ const apiUrl = import.meta.env.VITE_API_URL
 
 export const BlogContext = createContext()
 
-const BlogState = (props) => {
+function BlogState({ children }) {
   const initialState = {
     blogs: null,
     blog: null,
@@ -67,11 +67,7 @@ const BlogState = (props) => {
     try {
       const config = { headers: { 'Content-Type': 'application/json' } }
       const res = await axios.put(`${apiUrl}/blogs/${blogId}`, blogData, config)
-      console.log('blogState: ', res.data)
-      dispatch({
-        type: UPDATE_BLOG,
-        payload: res.data,
-      })
+      dispatch({ type: UPDATE_BLOG, payload: res.data, })
     } catch (err) {
       dispatch({ type: ERROR_BLOG, payload: err.response.data.message })
     }
@@ -100,7 +96,7 @@ const BlogState = (props) => {
         clearBlogs
       }}
     >
-      {props.children}
+      {children}
     </BlogContext.Provider>
   )
 }

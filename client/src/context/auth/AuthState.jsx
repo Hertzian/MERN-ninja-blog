@@ -17,7 +17,7 @@ const apiUrl = import.meta.env.VITE_API_URL
 
 export const AuthContext = createContext()
 
-const AuthState = ({ children }) => {
+function AuthState({ children }) {
   const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: null,

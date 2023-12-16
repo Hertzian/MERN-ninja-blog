@@ -14,9 +14,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <BlogState>
         <AlertState>
           <UsersState>
-
             <App />
-
           </UsersState>
         </AlertState>
       </BlogState>
