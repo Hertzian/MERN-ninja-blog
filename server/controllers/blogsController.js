@@ -88,7 +88,7 @@ exports.deleteBlog = asyncHandler(async (req, res) => {
 })
 
 // @desc    get blogs by user Id
-// @route   GET /api/users/:userId/blogs
+// @route   GET /api/blogs/users/:userId/blogs
 // @access  private/admin
 exports.getBlogsByUserId = asyncHandler(async (req, res) => {
   const blogs = await Blog.find({ author: req.params.userId })
