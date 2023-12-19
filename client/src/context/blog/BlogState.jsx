@@ -9,7 +9,8 @@ import {
   DELETE_BLOG,
   RESET,
   UPDATE_BLOG,
-  CLEAR_BLOGS
+  CLEAR_BLOGS,
+  GET_BLOGS_BY_USER_ID
 } from '../types'
 
 const apiUrl = import.meta.env.VITE_API_URL
@@ -73,6 +74,15 @@ function BlogState({ children }) {
     }
   }
 
+  const getBlogsByUserId = async (userId) => {
+    try {
+      const res = await axios.get(`${apiUrl}/blogs/users/${userId}`)
+      dispatch({ type: GET_BLOGS_BY_USER_ID, payload: res.data })
+    } catch (err) {
+      dispatch({ type: ERROR_BLOG, payload: err.response.data.message })
+    }
+  }
+
   const resetMode = () => {
     dispatch({ type: RESET })
     dispatch({ type: CLEAR_BLOGS })
@@ -92,6 +102,7 @@ function BlogState({ children }) {
         createBlog,
         deleteBlog,
         updateBlog,
+        getBlogsByUserId,
         resetMode,
         clearBlogs
       }}

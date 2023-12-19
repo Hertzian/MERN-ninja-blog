@@ -6,11 +6,13 @@ import {
   ERROR_BLOG,
   RESET,
   CLEAR_BLOGS,
-  UPDATE_BLOG
+  UPDATE_BLOG,
+  GET_BLOGS_BY_USER_ID
 } from '../types'
 
 const blogReducer = (state, action) => {
   switch (action.type) {
+    case GET_BLOGS_BY_USER_ID:
     case GET_ALL_BLOGS:
       return {
         ...state,

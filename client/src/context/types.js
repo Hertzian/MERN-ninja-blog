@@ -18,6 +18,7 @@ export const CLEAR_ERRORS = 'CLEAR_ERRORS'
 
 // blog
 export const GET_ALL_BLOGS = 'GET_ALL_BLOGS'
+export const GET_BLOGS_BY_USER_ID = 'GET_BLOGS_BY_USER_ID'
 export const GET_ONE_BLOG = 'GET_ONE_BLOG'
 export const CREATE_BLOG = 'CREATE_BLOG'
 export const UPDATE_BLOG = 'UPDATE_BLOG'
