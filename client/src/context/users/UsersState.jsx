@@ -9,8 +9,8 @@ export const UsersContext = createContext()
 
 function UsersState({ children }) {
   const initialState = {
-    users: null,
-    userSelected: null,
+    users: [],
+    user: null,
     error: null,
     loading: true
   }
@@ -39,7 +39,7 @@ function UsersState({ children }) {
     <UsersContext.Provider
       value={{
         users: state.users,
-        userSelected: state.userSelected,
+        user: state.user,
         error: state.error,
         loading: state.loading,
         getAllUsers,

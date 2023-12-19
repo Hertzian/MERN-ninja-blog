@@ -1,10 +1,7 @@
-import React from 'react'
-
 const BlogList = () => {
   return (
     <>
-      <h3>UserList</h3>
-      {/* {loading && <p>loading...</p>} */}
+      <h3>User blogs</h3>
       <table className='table'>
         <thead>
           <tr>

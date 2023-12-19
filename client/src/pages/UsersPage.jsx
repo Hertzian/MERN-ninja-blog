@@ -13,11 +13,8 @@ const UsersPage = () => {
       <>
         <h2>UsersPage</h2>
         <UserList />
-        <h3>Perritos :3</h3>
       </>
     )
-  } else {
-    // return <Redirect to='/' />
   }
 }
 

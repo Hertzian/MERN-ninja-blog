@@ -6,7 +6,7 @@ const usersReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        userSelected: null,
+        user: null,
         users: action.payload
       }
 
@@ -14,7 +14,7 @@ const usersReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        userSelected: action.payload
+        user: action.payload
       }
 
     case ERROR_USERS:

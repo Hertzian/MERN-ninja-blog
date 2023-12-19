@@ -1,43 +1,45 @@
 import { useEffect, useContext } from 'react'
-// import { useHistory } from 'react-router-dom'
-import BlogList from '../components/BlogList-1'
+import { useNavigate, useParams } from 'react-router-dom'
+import UserBlogList from '../components/UserBlogList'
 import { UsersContext } from '../context/users/UsersState'
 
-const UserDetailsPage = ({ match }) => {
+const UserDetailsPage = () => {
   const usersContext = useContext(UsersContext)
-  const { getUserById, userSelected, loading } = usersContext
-
-  // const history = useHistory()
+  const { getUserById, loading, user } = usersContext
+  const navigate = useNavigate()
+  const { userId } = useParams()
 
   useEffect(() => {
-    getUserById(match.params.userId)
+    getUserById(userId)
     // eslint-disable-next-line
   }, [])
 
-  console.log(match.params.userId)
-  console.log('selectedUser: ', userSelected)
+  const handleGoBack = () => navigate('/users')
 
-  if (!userSelected) {
-    return <p>User not found...</p>
+  let renderUser
+  if (user) {
+    const { _id, name, email, role } = user
+    renderUser = (
+      <>
+        <p>userId: {_id}</p>
+        <div>
+          <h2>UserDetailsPage</h2>
+          <p>match params: {userId}</p>
+          <p>name: {name}</p>
+          <p>email: {email}</p>
+          <p>role: {role}</p>
+        </div>
+        <UserBlogList />
+      </>
+    )
   }
 
   return (
     <>
-      {/* <button onClick={() => history.push('/users')}>Go back</button> */}
+      <button onClick={handleGoBack}>Go back</button>
       {loading && <p>loading</p>}
-      <p>userId: {match.params.userId}</p>
-      {userSelected && (
-        <div>
-          <h2>UserDetailsPage</h2>
-          <p>match params: {match.params.userId}</p>
-          <p>name: {userSelected.name}</p>
-          <p>email: {userSelected.email}</p>
-          <p>role: {userSelected.role}</p>
-        </div>
-      )}
-
-      <h3>Blogs:</h3>
-      <BlogList />
+      {renderUser}
+      <br />
     </>
   )
 }

@@ -11,32 +11,43 @@ const UserList = () => {
     // eslint-disable-next-line
   }, [])
 
+  let renderUsers
+  if (users) {
+    renderUsers = (
+
+      <table className='table'>
+        <thead>
+          <tr>
+            <th>Role</th>
+            <th>Name</th>
+            <th>email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user) => <UserItem key={user._id} user={user} />)}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>Role</th>
+            <th>Name</th>
+            <th>email</th>
+            <th>Actions</th>
+          </tr>
+        </tfoot>
+      </table >
+    )
+  }
+
+  if (!users) {
+    renderUsers = <p>We dont have any users...</p>
+  }
+
   return (
     <>
       <h3>UserList</h3>
       {loading && <p>loading...</p>}
-      <table className='table'>
-        <thead>
-          <tr>
-            <th>role</th>
-            <th>name</th>
-            <th>email</th>
-            <th>actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users &&
-            users.map((user, idx) => <UserItem key={idx} user={user} />)}
-        </tbody>
-        <tfoot>
-          <tr>
-            <th>role</th>
-            <th>name</th>
-            <th>email</th>
-            <th>actions</th>
-          </tr>
-        </tfoot>
-      </table>
+      {renderUsers}
     </>
   )
 }

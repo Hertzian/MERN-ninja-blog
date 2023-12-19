@@ -20,14 +20,14 @@ export const router = createBrowserRouter([
         element: <IndexPage />
       },
 
-      // {
-      //   path: '/users',
-      //   element: <UsersPage />
-      // },
-      // {
-      //   path: '/users/:userId',
-      //   element: <UserDetailsPage />
-      // },
+      {
+        path: '/users',
+        element: <UsersPage />
+      },
+      {
+        path: '/users/:userId',
+        element: <UserDetailsPage />
+      },
       {
         path: '/login',
         element: <LoginPage />

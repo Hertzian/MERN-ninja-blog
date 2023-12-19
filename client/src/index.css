@@ -58,7 +58,8 @@ button:hover {
   margin-left: 1rem;
 }
 
-.navbar a:hover {
+.navbar a:hover,
+a:hover {
   color: #f1356d;
 }
 
