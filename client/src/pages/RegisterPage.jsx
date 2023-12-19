@@ -1,24 +1,26 @@
-import React, { useState, useContext, useEffect } from 'react'
+import { useState, useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { AlertContext } from '../context/alert/AlertState'
 import { AuthContext } from '../context/auth/AuthState'
 
-const RegisterPage = ({ history }) => {
+const RegisterPage = () => {
   const alertContext = useContext(AlertContext)
   const { setAlert } = alertContext
+  const navigate = useNavigate()
 
   const authContext = useContext(AuthContext)
-  const { register, error, clearErrors, isAuthenticated } = authContext
+  const { register, error, clearErrors, isAuthenticated, token } = authContext
 
   useEffect(() => {
-    if (isAuthenticated) {
-      history.push('/')
+    if (isAuthenticated || token) {
+      return navigate('/')
     }
-    // if(error === 'User already exists'){
+
     if (error) {
       setAlert(error, 'danger')
       clearErrors()
     }
-  }, [error, setAlert, clearErrors, history, isAuthenticated])
+  }, [error, setAlert, clearErrors, isAuthenticated, token, navigate])
 
   const [user, setUser] = useState({
     name: '',
@@ -29,12 +31,8 @@ const RegisterPage = ({ history }) => {
 
   const { name, email, password, confirmPassword } = user
 
-  const onChange = (e) => {
-    setUser({
-      ...user,
-      [e.target.name]: e.target.value
-    })
-  }
+  const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value })
+
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -44,7 +42,8 @@ const RegisterPage = ({ history }) => {
     } else if (password !== confirmPassword) {
       setAlert('Passwords do not match', 'danger')
     } else {
-      register({ name, email, password })
+      register(user)
+      return navigate('/')
     }
   }
 
@@ -81,7 +80,7 @@ const RegisterPage = ({ history }) => {
           value={password}
           onChange={onChange}
         // required
-        // minLength='8'
+        // minLength='6'
         />
         <label htmlFor='confirm-password' className='create label'>
           Confirm password:
@@ -92,7 +91,7 @@ const RegisterPage = ({ history }) => {
           value={confirmPassword}
           onChange={onChange}
         // required
-        // minLength='8'
+        // minLength='6'
         />
         <button type='submit'>Register</button>
       </form>

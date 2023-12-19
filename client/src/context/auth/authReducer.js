@@ -15,7 +15,6 @@ const authReducer = (state, action) => {
       return {
         ...state,
         isAuthenticated: true,
-        loading: false,
         user: action.payload,
         isAdmin: action.payload.role === 'admin'
       }
@@ -28,7 +27,7 @@ const authReducer = (state, action) => {
         ...state,
         ...action.payload,
         isAuthenticated: true,
-        loading: false
+        loading: false,
       }
 
     case LOGOUT:

@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import { AuthContext } from '../context/auth/AuthState'
@@ -7,7 +7,13 @@ import { AlertContext } from '../context/alert/AlertState'
 function NavBar() {
   const authContext = useContext(AuthContext)
   const { setAlert } = useContext(AlertContext)
-  const { token, isAuthenticated, isAdmin, logout } = authContext
+  const { loadUser, token, isAuthenticated, isAdmin, logout, user } = authContext
+
+  useEffect(() => {
+    if (localStorage.token) {
+      loadUser()
+    }
+  }, [isAuthenticated, token, loadUser])
 
   const handleLogout = () => {
     logout()
@@ -35,17 +41,27 @@ function NavBar() {
     )
   }
 
+  let renderWelcome
+  if (user) {
+    renderWelcome = <p >Hello {user.name}</p>
+  }
+
   return (
-    <nav className='navbar'>
-      <h1>The Ninja Blog!</h1>
-      <div className='links'>
+    <>
+      <nav className='navbar'>
+        <h1>The Ninja Blog!</h1>
+        <div className='links'>
 
-        <Link to='/'>Home</Link>
-        {adminLinks}
-        {userAuthLinks}
+          <Link to='/'>Home</Link>
+          {adminLinks}
+          {userAuthLinks}
 
-      </div>
-    </nav>
+        </div>
+
+        {renderWelcome}
+
+      </nav >
+    </>
   )
 }
 

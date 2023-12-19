@@ -1,18 +1,13 @@
 import { useState, useContext, useEffect } from 'react'
 import BlogList from '../components/BlogList'
 import { BlogContext } from '../context/blog/BlogState'
-import { AuthContext } from '../context/auth/AuthState'
 
 function IndexPage() {
-  const authContext = useContext(AuthContext)
   const blogContext = useContext(BlogContext)
 
-  const { loadUser, user, token, isAuthenticated } = authContext
-  const { blogs, getBlogs, loading, clearBlogs } = blogContext
+  const { blogs, getBlogs, loading } = blogContext
 
   const [latestBlogs, setLatestBlogs] = useState([])
-
-  console.log('isAdmin?: ', user && user.role)
 
   useEffect(() => {
     getBlogs()

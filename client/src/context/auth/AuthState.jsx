@@ -49,6 +49,7 @@ function AuthState({ children }) {
       }
       const res = await axios.post(`${apiUrl}/users/login`, formData, config)
       dispatch({ type: LOGIN_SUCCESS, payload: res.data })
+      setAuthToken(res.data.token)
       loadUser()
     } catch (err) {
       dispatch({ type: LOGIN_FAIL, payload: err.response.data.message })
@@ -62,6 +63,7 @@ function AuthState({ children }) {
       }
       const res = await axios.post(`${apiUrl}/users/register`, formData, config)
       dispatch({ type: REGISTER_SUCCESS, payload: res.data })
+      setAuthToken(res.data.token)
       loadUser()
     } catch (err) {
       dispatch({ type: REGISTER_FAIL, payload: err.response.data.message })
