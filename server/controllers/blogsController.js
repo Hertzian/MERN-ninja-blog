@@ -78,12 +78,18 @@ exports.createBlog = asyncHandler(async (req, res) => {
 exports.deleteBlog = asyncHandler(async (req, res) => {
   const blog = await Blog.findById(req.params.blogId)
 
-  if (String(blog.author) === String(req.user._id) || req.user.isAdmin) {
-    await blog.remove()
-    res.json({ message: 'Your blog is gone!', blog: {} })
-  } else {
-    res.status(404).json({ message: 'Blog not found' })
-    throw new Error('Blog not found')
+  try {
+
+    if (String(blog.author) === String(req.user._id) || req.user.role === 'admin') {
+      await blog.remove()
+      res.json({ message: 'Your blog is gone!', blog: {} })
+    } else {
+      res.status(404).json({ message: 'Blog not found' })
+      throw new Error('Blog not found')
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+    throw new Error('Server error')
   }
 })
 
