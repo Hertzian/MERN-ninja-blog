@@ -4,10 +4,8 @@ import { AuthContext } from '../context/auth/AuthState'
 import { AlertContext } from '../context/alert/AlertState'
 
 const BlogItem = ({ blog, onDelete }) => {
-  const authContext = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
   const { setAlert } = useContext(AlertContext)
-
-  const { user } = authContext
   const { title, _id, author } = blog
 
   const deleteHandler = () => {

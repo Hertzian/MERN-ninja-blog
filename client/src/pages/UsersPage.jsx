@@ -4,9 +4,7 @@ import UserList from '../components/UserList'
 import { AuthContext } from '../context/auth/AuthState'
 
 const UsersPage = () => {
-  const authContext = useContext(AuthContext)
-
-  const { isAdmin, isAuthenticated } = authContext
+  const { isAdmin, isAuthenticated } = useContext(AuthContext)
 
   if (isAdmin && isAuthenticated) {
     return (

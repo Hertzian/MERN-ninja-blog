@@ -4,16 +4,13 @@ import { BlogContext } from '../context/blog/BlogState'
 import { AuthContext } from '../context/auth/AuthState'
 import { AlertContext } from '../context/alert/AlertState'
 
-const NewBlogPage = ({ history, match }) => {
-  const authContext = useContext(AuthContext)
-  const blogContext = useContext(BlogContext)
-  const alertContext = useContext(AlertContext)
+const NewBlogPage = () => {
+  const { user } = useContext(AuthContext)
+  const { createBlog, blogs, updateBlog, resetMode } = useContext(BlogContext)
+  const { setAlert } = useContext(AlertContext)
   const { blogId } = useParams()
   const navigate = useNavigate()
 
-  const { loadUser, user } = authContext
-  const { createBlog, blogs, updateBlog, getBlog, resetMode } = blogContext
-  const { setAlert } = alertContext
   const initialState = {
     title: '',
     body: '',

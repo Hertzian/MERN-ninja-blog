@@ -4,12 +4,9 @@ import { AlertContext } from '../context/alert/AlertState'
 import { AuthContext } from '../context/auth/AuthState'
 
 const RegisterPage = () => {
-  const alertContext = useContext(AlertContext)
-  const { setAlert } = alertContext
+  const { setAlert } = useContext(AlertContext)
+  const { register, error, clearErrors, isAuthenticated, token } = useContext(AuthContext)
   const navigate = useNavigate()
-
-  const authContext = useContext(AuthContext)
-  const { register, error, clearErrors, isAuthenticated, token } = authContext
 
   useEffect(() => {
     if (isAuthenticated || token) {

@@ -5,10 +5,8 @@ import { AlertContext } from '../context/alert/AlertState'
 
 function BlogListItem({ blog }) {
   const navigate = useNavigate()
-  const blogContext = useContext(BlogContext)
-  const alertContext = useContext(AlertContext)
-  const { deleteBlog } = blogContext
-  const { setAlert } = alertContext
+  const { deleteBlog } = useContext(BlogContext)
+  const { setAlert } = useContext(AlertContext)
 
   const handleDetail = () => {
     navigate(`/blog/${blog._id}`)

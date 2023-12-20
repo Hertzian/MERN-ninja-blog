@@ -4,10 +4,8 @@ import { BlogContext } from '../context/blog/BlogState'
 import { AuthContext } from '../context/auth/AuthState'
 
 const BlogDetailPage = ({ match }) => {
-  const authContext = useContext(AuthContext)
-  const blogContext = useContext(BlogContext)
-  const { isAdmin } = authContext
-  const { loading, blog, getBlog } = blogContext
+  const { isAdmin } = useContext(AuthContext)
+  const { loading, blog, getBlog } = useContext(BlogContext)
   const { blogId } = useParams()
 
   useEffect(() => {

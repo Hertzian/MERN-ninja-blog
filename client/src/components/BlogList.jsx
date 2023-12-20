@@ -4,11 +4,8 @@ import { AlertContext } from '../context/alert/AlertState'
 import BlogItem from './BlogItem'
 
 const BlogList = ({ blogs }) => {
-  const blogContext = useContext(BlogContext)
-  const alertContext = useContext(AlertContext)
-
-  const { deleteBlog } = blogContext
-  const { setAlert } = alertContext
+  const { deleteBlog } = useContext(BlogContext)
+  const { setAlert } = useContext(AlertContext)
 
   const deleteHandler = (blogId) => {
     deleteBlog(blogId)

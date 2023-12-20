@@ -4,8 +4,7 @@ import UserBlogList from '../components/UserBlogList'
 import { UsersContext } from '../context/users/UsersState'
 
 const UserDetailsPage = () => {
-  const usersContext = useContext(UsersContext)
-  const { getUserById, user } = usersContext
+  const { getUserById, user } = useContext(UsersContext)
   const navigate = useNavigate()
   const { userId } = useParams()
 

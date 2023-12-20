@@ -3,9 +3,7 @@ import BlogList from '../components/BlogList'
 import { BlogContext } from '../context/blog/BlogState'
 
 function IndexPage() {
-  const blogContext = useContext(BlogContext)
-
-  const { blogs, getBlogs, loading } = blogContext
+  const { blogs, getBlogs, loading } = useContext(BlogContext)
 
   const [latestBlogs, setLatestBlogs] = useState([])
 

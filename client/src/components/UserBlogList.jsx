@@ -3,8 +3,7 @@ import { BlogContext } from "../context/blog/BlogState"
 import BlogListItem from '../components/BlogListItem'
 
 function BlogList({ userId }) {
-  const blogContext = useContext(BlogContext)
-  const { blogs, getBlogsByUserId } = blogContext
+  const { blogs, getBlogsByUserId } = useContext(BlogContext)
 
   useEffect(() => {
     getBlogsByUserId(userId)

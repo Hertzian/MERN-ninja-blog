@@ -5,9 +5,8 @@ import { AuthContext } from '../context/auth/AuthState'
 import { AlertContext } from '../context/alert/AlertState'
 
 function NavBar() {
-  const authContext = useContext(AuthContext)
+  const { loadUser, token, isAuthenticated, isAdmin, logout, user } = useContext(AuthContext)
   const { setAlert } = useContext(AlertContext)
-  const { loadUser, token, isAuthenticated, isAdmin, logout, user } = authContext
   const navigate = useNavigate()
 
   useEffect(() => {

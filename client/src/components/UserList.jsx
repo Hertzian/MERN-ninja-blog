@@ -3,8 +3,7 @@ import UserItem from './UserItem'
 import { UsersContext } from '../context/users/UsersState'
 
 const UserList = () => {
-  const usersContext = useContext(UsersContext)
-  const { users, getAllUsers, loading } = usersContext
+  const { users, getAllUsers, loading } = useContext(UsersContext)
 
   useEffect(() => {
     getAllUsers()

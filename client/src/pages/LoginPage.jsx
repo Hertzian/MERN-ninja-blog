@@ -4,12 +4,9 @@ import { AlertContext } from '../context/alert/AlertState'
 import { AuthContext } from '../context/auth/AuthState'
 
 function LoginPage() {
-  const alertContext = useContext(AlertContext)
-  const authContext = useContext(AuthContext)
+  const { setAlert } = useContext(AlertContext)
+  const { login, error, isAuthenticated, clearErrors, token } = useContext(AuthContext)
   const navigate = useNavigate()
-
-  const { setAlert } = alertContext
-  const { login, error, isAuthenticated, clearErrors, token } = authContext
 
   useEffect(() => {
     if (isAuthenticated || token) {
