@@ -1,4 +1,5 @@
 import { useReducer, createContext, useCallback } from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
 import authReducer from './authReducer'
 import setAuthToken from '../../utils/setAuthToken'
@@ -97,6 +98,10 @@ function AuthState({ children }) {
       {children}
     </AuthContext.Provider>
   )
+}
+
+AuthState.propTypes = {
+  children: PropTypes.node.isRequired
 }
 
 export default AuthState

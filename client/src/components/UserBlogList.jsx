@@ -1,4 +1,5 @@
 import { useEffect, useContext } from "react"
+import PropTypes from 'prop-types'
 import { BlogContext } from "../context/blog/BlogState"
 import BlogListItem from '../components/BlogListItem'
 
@@ -7,6 +8,7 @@ function BlogList({ userId }) {
 
   useEffect(() => {
     getBlogsByUserId(userId)
+    // eslint-disable-next-line
   }, [userId])
 
   let renderBlogs
@@ -29,6 +31,10 @@ function BlogList({ userId }) {
       {renderBlogs}
     </>
   )
+}
+
+BlogList.propTypes = {
+  userId: PropTypes.string.isRequired
 }
 
 export default BlogList

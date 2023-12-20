@@ -1,9 +1,10 @@
 import { useContext } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../context/auth/AuthState'
 import { AlertContext } from '../context/alert/AlertState'
 
-const BlogItem = ({ blog, onDelete }) => {
+function BlogItem({ blog, onDelete }) {
   const { user } = useContext(AuthContext)
   const { setAlert } = useContext(AlertContext)
   const { title, _id, author } = blog
@@ -35,7 +36,11 @@ const BlogItem = ({ blog, onDelete }) => {
   }
 
   return <>{renderItem}</>
+}
 
+BlogItem.propTypes = {
+  blog: PropTypes.object.isRequired,
+  onDelete: PropTypes.func.isRequired
 }
 
 export default BlogItem

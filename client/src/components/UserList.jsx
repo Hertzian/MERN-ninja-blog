@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react'
 import UserItem from './UserItem'
 import { UsersContext } from '../context/users/UsersState'
 
-const UserList = () => {
+function UserList() {
   const { users, getAllUsers, loading } = useContext(UsersContext)
 
   useEffect(() => {

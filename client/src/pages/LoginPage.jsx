@@ -17,6 +17,7 @@ function LoginPage() {
       setAlert(error, 'danger')
       clearErrors()
     }
+    // eslint-disable-next-line
   }, [history, error, setAlert, clearErrors, token])
 
   const [user, setUser] = useState({

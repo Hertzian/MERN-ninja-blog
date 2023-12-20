@@ -3,13 +3,14 @@ import { Link, useParams } from 'react-router-dom'
 import { BlogContext } from '../context/blog/BlogState'
 import { AuthContext } from '../context/auth/AuthState'
 
-const BlogDetailPage = ({ match }) => {
+function BlogDetailPage() {
   const { isAdmin } = useContext(AuthContext)
   const { loading, blog, getBlog } = useContext(BlogContext)
   const { blogId } = useParams()
 
   useEffect(() => {
     getBlog(blogId)
+    // eslint-disable-next-line
   }, [blogId])
 
   let renderBlog

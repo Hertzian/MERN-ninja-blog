@@ -1,4 +1,5 @@
 import { useReducer, createContext } from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
 import usersReducer from './usersReducer'
 import { GET_ALL_USERS, ERROR_USERS, GET_USER } from '../types'
@@ -49,6 +50,10 @@ function UsersState({ children }) {
       {children}
     </UsersContext.Provider>
   )
+}
+
+UsersState.propTypes = {
+  children: PropTypes.node.isRequired
 }
 
 export default UsersState

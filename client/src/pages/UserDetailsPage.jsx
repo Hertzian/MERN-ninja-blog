@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import UserBlogList from '../components/UserBlogList'
 import { UsersContext } from '../context/users/UsersState'
 
-const UserDetailsPage = () => {
+function UserDetailsPage() {
   const { getUserById, user } = useContext(UsersContext)
   const navigate = useNavigate()
   const { userId } = useParams()

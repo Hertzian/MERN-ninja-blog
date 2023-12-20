@@ -4,7 +4,7 @@ import { BlogContext } from '../context/blog/BlogState'
 import { AuthContext } from '../context/auth/AuthState'
 import { AlertContext } from '../context/alert/AlertState'
 
-const NewBlogPage = () => {
+function NewBlogPage() {
   const { user } = useContext(AuthContext)
   const { createBlog, blogs, updateBlog, resetMode } = useContext(BlogContext)
   const { setAlert } = useContext(AlertContext)
@@ -33,6 +33,7 @@ const NewBlogPage = () => {
       resetMode()
       setFormData(initialState)
     }
+    // eslint-disable-next-line
   }, [blogId])
 
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value })

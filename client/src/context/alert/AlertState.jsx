@@ -1,4 +1,5 @@
 import { useReducer, createContext } from 'react'
+import PropTypes from 'prop-types'
 import { v4 } from 'uuid'
 import alertReducer from './alertReducer'
 import { SET_ALERT, REMOVE_ALERT } from '../types'
@@ -29,6 +30,10 @@ function AlertState({ children }) {
       {children}
     </AlertContext.Provider>
   )
+}
+
+AlertState.propTypes = {
+  children: PropTypes.node.isRequired
 }
 
 export default AlertState

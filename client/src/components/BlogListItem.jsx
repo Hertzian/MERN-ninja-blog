@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom"
+import PropTypes from 'prop-types'
 import { BlogContext } from "../context/blog/BlogState"
 import { AlertContext } from '../context/alert/AlertState'
 
@@ -46,6 +47,10 @@ function BlogListItem({ blog }) {
       </table>
     </>
   )
+}
+
+BlogListItem.propTypes = {
+  blog: PropTypes.object.isRequired
 }
 
 export default BlogListItem

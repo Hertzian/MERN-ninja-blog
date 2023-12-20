@@ -1,4 +1,5 @@
 import { useReducer, createContext, useCallback } from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
 import blogReducer from './blogReducer'
 import {
@@ -110,6 +111,10 @@ function BlogState({ children }) {
       {children}
     </BlogContext.Provider>
   )
+}
+
+BlogState.propTypes = {
+  children: PropTypes.node.isRequired
 }
 
 export default BlogState

@@ -1,9 +1,10 @@
 import { useContext } from 'react'
+import PropTypes from 'prop-types'
 import { BlogContext } from '../context/blog/BlogState'
 import { AlertContext } from '../context/alert/AlertState'
 import BlogItem from './BlogItem'
 
-const BlogList = ({ blogs }) => {
+function BlogList({ blogs }) {
   const { deleteBlog } = useContext(BlogContext)
   const { setAlert } = useContext(AlertContext)
 
@@ -20,6 +21,10 @@ const BlogList = ({ blogs }) => {
   }
 
   return <>{renderBlogItems}</>
+}
+
+BlogList.propTypes = {
+  blogs: PropTypes.array.isRequired
 }
 
 export default BlogList

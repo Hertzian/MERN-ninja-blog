@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { AlertContext } from '../context/alert/AlertState'
 import { AuthContext } from '../context/auth/AuthState'
 
-const RegisterPage = () => {
+function RegisterPage() {
   const { setAlert } = useContext(AlertContext)
   const { register, error, clearErrors, isAuthenticated, token } = useContext(AuthContext)
   const navigate = useNavigate()
