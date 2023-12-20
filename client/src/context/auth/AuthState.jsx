@@ -10,7 +10,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
+  CLEAR_BLOGS
 } from '../types'
 
 const apiUrl = import.meta.env.VITE_API_URL
@@ -70,7 +71,10 @@ function AuthState({ children }) {
     }
   }
 
-  const logout = () => dispatch({ type: LOGOUT })
+  const logout = () => {
+    dispatch({ type: LOGOUT })
+    dispatch({ type: CLEAR_BLOGS })
+  }
 
   const clearErrors = () => dispatch({ type: CLEAR_ERRORS })
 

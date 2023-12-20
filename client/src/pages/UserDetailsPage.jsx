@@ -5,7 +5,7 @@ import { UsersContext } from '../context/users/UsersState'
 
 const UserDetailsPage = () => {
   const usersContext = useContext(UsersContext)
-  const { getUserById, loading, user } = usersContext
+  const { getUserById, user } = usersContext
   const navigate = useNavigate()
   const { userId } = useParams()
 
@@ -21,15 +21,12 @@ const UserDetailsPage = () => {
     const { _id, name, email, role } = user
     renderUser = (
       <>
-        <p>userId: {_id}</p>
         <div>
-          <h2>UserDetailsPage</h2>
-          <p>match params: {userId}</p>
-          <p>name: {name}</p>
-          <p>email: {email}</p>
+          <h2>{name} - {email} Details</h2>
+          <p>userId: {_id}</p>
           <p>role: {role}</p>
         </div>
-        <UserBlogList />
+        <UserBlogList userId={userId} />
       </>
     )
   }
@@ -37,7 +34,6 @@ const UserDetailsPage = () => {
   return (
     <>
       <button onClick={handleGoBack}>Go back</button>
-      {loading && <p>loading</p>}
       {renderUser}
       <br />
     </>

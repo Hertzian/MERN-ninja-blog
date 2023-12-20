@@ -1,34 +1,33 @@
-const BlogList = () => {
+import { useEffect, useContext } from "react"
+import { BlogContext } from "../context/blog/BlogState"
+import BlogListItem from '../components/BlogListItem'
+
+function BlogList({ userId }) {
+  const blogContext = useContext(BlogContext)
+  const { blogs, getBlogsByUserId } = blogContext
+
+  useEffect(() => {
+    getBlogsByUserId(userId)
+  }, [userId])
+
+  let renderBlogs
+  if (blogs) {
+    renderBlogs = blogs.map((blog) => <BlogListItem blog={blog} key={blog._id} />)
+  }
+
+  if (!blogs) {
+    renderBlogs =
+      <tr>
+        <td>-</td>
+        <td>No blogs for this user</td>
+        <td>-</td>
+      </tr>
+  }
+
   return (
     <>
-      <h3>User blogs</h3>
-      <table className='table'>
-        <thead>
-          <tr>
-            <th>role</th>
-            <th>name</th>
-            <th>email</th>
-            <th>actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            //blogs && blogs > 0 ? (
-            //blogs.map((blog, idx) => <BlogItem blog key={idx} />)
-            //) : (
-            //<p>this users doesnt have any blogs... </p>
-            //)
-          }
-        </tbody>
-        <tfoot>
-          <tr>
-            <th>role</th>
-            <th>name</th>
-            <th>email</th>
-            <th>actions</th>
-          </tr>
-        </tfoot>
-      </table>
+      <h3>Blogs</h3>
+      {renderBlogs}
     </>
   )
 }

@@ -45,13 +45,14 @@ const blogReducer = (state, action) => {
     case CLEAR_BLOGS:
       return {
         ...state,
+        blog: null,
         blogs: null
       }
 
     case CREATE_BLOG:
       let blogs
       if (state.blogs) {
-        blogs = [...state.blogs, action.payload]
+        blogs = [...state.blogs, ...action.payload]
       }
 
       return {
