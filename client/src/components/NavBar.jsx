@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { AuthContext } from '../context/auth/AuthState'
 import { AlertContext } from '../context/alert/AlertState'
@@ -8,6 +8,7 @@ function NavBar() {
   const authContext = useContext(AuthContext)
   const { setAlert } = useContext(AlertContext)
   const { loadUser, token, isAuthenticated, isAdmin, logout, user } = authContext
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (localStorage.token) {
@@ -17,6 +18,7 @@ function NavBar() {
 
   const handleLogout = () => {
     logout()
+    navigate('/')
     setAlert('You are logged out!', 'success')
   }
 
